@@ -32,7 +32,17 @@
           "resizeMode": "contain",
           "backgroundColor": "#ffffff"
         }
-      ]
+      ],
+      "expo-secure-store",
+      [
+        "expo-font",
+        {
+          "fonts": [
+            "path/to/file.ttf"
+          ]
+        }
+      ],
+      "expo-localization"
     ],
     "experiments": {
       "typedRoutes": true

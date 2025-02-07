@@ -1,0 +1,54 @@
+{
+  "auth":{
+    "sign-in": "Sign in",
+    "sign-up": "Sign up",
+    "user-name": "User name",
+    "e-mail": "E-mail",
+    "password": "Password",
+    "having-an-account-message":"Already have an account?",
+    "new-user-message": "Do not have an account?"
+  },
+  "button-text":{
+    "send": "Send",
+    "save": "Save",
+    "cancel": "Cancel"
+  },
+  "user-info":{
+    "first-name": "First name",
+    "last-name": "Last name",
+    "title": "Title",
+    "telephone": "Telephone",
+    "country": "Country",
+    "city": "City",
+    "street": "Street",
+    "postal-code": "Postal code",
+    "About": "About",
+    "skills": "Skills",
+    "languages": "Languages"
+  },
+  "education":{
+    "name": "Name",
+    "institution": "Institution"
+  },
+  "experience":{
+    "position": "Position",
+    "description": "Description",
+    "company-name": "Company name",
+    "location": "Location"
+  },
+  "date":{
+    "start-date": "Start date",
+    "end-date": "End date"
+  },
+  "pages":{
+    "dashboard": "Dashboard",
+    "home": "Home",
+    "chat": "Chat",
+    "profile": "Profile",
+    "jobs": "Jobs",
+    "community": "Community",
+    "setting:": "Setting"
+  },
+  "search": "Search",
+  "log-out": "Log out"
+}
