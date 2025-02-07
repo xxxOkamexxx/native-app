@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Stack } from "expo-router";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+export { ErrorBoundary } from "expo-router"; // Catch any errors thrown by the Layout component.
 import * as Updates from "expo-updates";
 
 import { useFonts } from 'expo-font';
@@ -9,7 +10,10 @@ import * as SplashScreen from 'expo-splash-screen';
 
 import { Switch, ThemeMode, ThemeProvider as ThemeProviderUI, useThemeMode } from "@rneui/themed";
 import { theme } from "@/constants/Theme";
+
 import { getItem, setItem } from "@/utils/asyncStorage";
+
+import "@/i18n.config"
 
 
 

@@ -38,6 +38,10 @@ export interface Theme {
     lg: number;
   };
 }
+export const colors = {
+  white: "rgb(248, 247, 250)",
+  black: "rgb(15, 15, 15)",
+}
 
 export const theme = createTheme({
   mode: "light" as "light" | "dark",
@@ -217,6 +221,11 @@ export const Fonts = {
     fontFamily: "PoppinsBold",
   },
 
+  whiteColor20Medium: {
+    fontSize: 20.0,
+    fontFamily: "PoppinsMedium",
+  },
+  
   whiteColor20Bold: {
     fontSize: 20.0,
     fontFamily: "PoppinsBold",
@@ -241,6 +250,11 @@ export const Fonts = {
     fontFamily: "PoppinsBold",
   },
 
+  primaryColor20Medium: {
+    fontSize: 20.0,
+    fontFamily: "PoppinsMedium",
+  },
+  
   primaryColor20Bold: {
     fontSize: 20.0,
     fontFamily: "PoppinsBold",
@@ -291,7 +305,7 @@ export const Fonts = {
 };
 
 export const Sizes = {
-  fixPadding: 10.0,
+  fixPadding: 16.0,
 };
 
 export const screenWidth = Dimensions.get("window").width;
