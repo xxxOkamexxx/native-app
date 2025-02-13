@@ -4,10 +4,11 @@ import { useQuery } from '@tanstack/react-query'
 import { useRouter, Link } from 'expo-router'
 
 import { useTranslation } from "react-i18next";
+import { useTheme } from '@rneui/themed'
+import { useAuth } from '@/contexts/authContext';
 
 import { GetUserById } from '@/api/backend'
 import { Text } from '@rneui/themed'
-import { useTheme } from '@rneui/themed'
 import { Fonts, Sizes, theme } from '@/constants/Theme'
 
 import TextField from '@/components/UI/Input/TextField'
@@ -19,7 +20,6 @@ import Animated, {
   FadeInRight,
   FadeInUp,
 } from "react-native-reanimated";
-import { useAuth } from '@/contexts/authContext';
 
 
 const SignInSchema = Yup.object().shape({

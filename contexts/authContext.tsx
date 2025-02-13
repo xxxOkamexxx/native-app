@@ -95,12 +95,12 @@ export function AuthProvider (props: any) {
   });
 
   const initializeAuth = async () => {
-    console.log("start initializeAuth"); // ✅
+    // console.log("start initializeAuth"); // ✅
     setIsLoadingSession(true);
     try {
       const token = await getItem(AUTH_TOKEN);
       if (token) {
-        console.log("initializeAuth-token", token); // ✅
+        // console.log("initializeAuth-token", token); // ✅
   
         const decoded: TokenPayload = jwtDecode<TokenPayload>(token);
         // console.log("Decoded token:", decoded); // ✅
@@ -191,6 +191,7 @@ export function AuthProvider (props: any) {
   };
 
   const SignUp = async (role: "staff" | "admin", data: IAuthInfo) => {
+    
     setIsLoadingSession(true);
     try {
       const endpoint = role === "staff" ? "/Auth/register/staff" : "/Auth/register/admin";
@@ -222,6 +223,7 @@ export function AuthProvider (props: any) {
       }
     } catch (error: unknown) {
       const err = error as AxiosError;
+      //console.log("SignUp error response:", err.response?.data); // ✅
       toast.show(
         `${err as AxiosError}.response?.data?.title`,
         {type: 'error'}
