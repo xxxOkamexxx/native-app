@@ -4,6 +4,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 export { ErrorBoundary } from "expo-router"; // Catch any errors thrown by the Layout component.
 import * as Updates from "expo-updates";
 
+import "@/i18n.config"
 import { useFonts } from 'expo-font';
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import * as SplashScreen from 'expo-splash-screen';
@@ -13,7 +14,10 @@ import { theme } from "@/constants/Theme";
 
 import { getItem, setItem } from "@/utils/asyncStorage";
 
-import "@/i18n.config"
+import { SafeAreaProvider } from "react-native-safe-area-context";
+import { ToastProvider } from "react-native-toast-notifications";
+import { MaterialIcons } from "@expo/vector-icons";
+import { AuthProvider } from "@/contexts/authContext";
 
 
 
@@ -41,15 +45,16 @@ const RootLayout = () => {
     return null;
   }
 
-  return (      
-    <RootLayoutNav />
+  return (  
+    <AuthProvider> 
+      <RootLayoutNav />
+    </AuthProvider>   
   );
 };
 
 export default RootLayout
 
 const development = process.env.NODE_ENV === "development";
-
 
 
 function RootLayoutNav() {
@@ -98,10 +103,29 @@ function RootLayoutNav() {
   return (
     <ThemeProviderUI theme={theme} >
       <QueryClientProvider client={queryClient} >
-        <Stack>
-          <Stack.Screen name="index" options={{headerShown: false}}/>
-          <Stack.Screen name="(auth)" />
-        </Stack>
+        <ToastProvider
+          placement="top"
+          swipeEnabled={true}
+          style={{ marginVertical: 5 }}
+          animationType="slide-in"
+          duration={5000}
+          animationDuration={250}
+          offsetTop={50}
+          offsetBottom={50}
+          dangerColor="#ef4444"
+          warningColor="#f59e0b"
+          successColor="#22c55e"
+          normalColor="#a3a3a3"
+          successIcon={<MaterialIcons name="check-circle" color={"white"} size={25} />}
+        >
+            <SafeAreaProvider>
+              <Stack>
+                <Stack.Screen name="index" options={{headerShown: false}} />
+                <Stack.Screen name="(auth)" options={{headerShown: false}}/>
+                <Stack.Screen name="(app)/(tabs)" options={{headerShown: false}} />
+              </Stack>
+            </SafeAreaProvider>
+        </ToastProvider>
       </QueryClientProvider>
     </ThemeProviderUI>
   )}

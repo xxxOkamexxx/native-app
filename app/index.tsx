@@ -7,7 +7,6 @@ import { useTranslation } from "react-i18next";
 import Button from '@/components/UI/Button';
 import { colors, commonStyles, Fonts, screenHeight, Sizes, theme } from '@/constants/Theme';
 import {MaterialCommunityIcons } from "@expo/vector-icons";
-import { size } from 'lodash';
 import { useRouter } from 'expo-router';
 
 const App = () => {
@@ -34,7 +33,7 @@ const App = () => {
     // console.log('theme:', theme.mode);
     const handleOnPress = () => {
       setLoading(true)
-      router.push("/(auth)/login") 
+      router.push("/(auth)/signin") 
 
       setLoading(false)
     }

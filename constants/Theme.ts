@@ -245,6 +245,12 @@ export const Fonts = {
     fontSize: 16.0,
     fontFamily: "Poppins",
   },
+
+  primaryColor16Medium: {
+    fontSize: 16.0,
+    fontFamily: "Poppins",
+  },
+
   primaryColor16Bold: {
     fontSize: 16.0,
     fontFamily: "PoppinsBold",

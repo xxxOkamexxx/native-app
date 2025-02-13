@@ -6,6 +6,7 @@
   "password": "Password",
   "having-an-account-message":"Already have an account?",
   "new-user-message": "Do not have an account?",
+  "role-checkbox-text": "Sign up as an company",
   
   "send": "Send",
   "save": "Save",
@@ -30,6 +31,7 @@
   "description": "Description",
   "company-name": "Company name",
   "location": "Location",
+  "organisation-number": "Organisation no.",
 
   "start-date": "Start date",
   "end-date": "End date",
