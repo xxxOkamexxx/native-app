@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet } from 'react-native'
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 import React from 'react'
 import { useRouter } from 'expo-router';
 
@@ -31,56 +31,94 @@ const Experience = ({user, showEditButton}: props) => {
         .sort((a, b) => new Date(b.startDate).getTime() - new Date(a.startDate).getTime())
         .slice(0, 2)
         .map((exp, index, array) => (
-          <View key={exp.id}>
-            <Text 
+          <View 
+            key={exp.id}
+          >
+            <View
               style={{
-                ...Fonts.grayColor14Bold,
-                color: theme.colors.grey0,
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+                width: '100%'
               }}
             >
-              {exp.position}                 
-            </Text>
+              <View
+                style={{
+                  flex: 2
+                }}
+              >
+                <Text 
+                  style={{
+                    ...Fonts.grayColor14Bold,
+                    color: theme.colors.grey0,
+                  }}
+                >
+                  {exp.position}                 
+                </Text>
 
-            <Text 
-              style={{
-                ...Fonts.grayColor14Regular,
-                color: theme.colors.grey0,
-              }}
-            >
-              {exp.companyName}
-            </Text>
+                <Text 
+                  style={{
+                    ...Fonts.grayColor14Regular,
+                    color: theme.colors.grey0,
+                  }}
+                >
+                  {exp.companyName}
+                </Text>
 
-            <Text 
-              style={{
-                ...Fonts.grayColor14Regular,
-                color: theme.colors.grey3,
-              }}
-            >
-              {dayjs(exp.startDate).format('YYYY-MM-DD')} - {exp.endDate ? dayjs(exp.endDate).format('YYYY-MM-DD') : 'Ongoing'}
-            </Text>
-            
-            <Text style={{
-              ...Fonts.grayColor14Regular,
-              color: theme.colors.grey0,
-            }}
-            >
-              {exp.location}
-            </Text>
+                <Text 
+                  style={{
+                    ...Fonts.grayColor14Regular,
+                    color: theme.colors.grey3,
+                  }}
+                >
+                  {dayjs(exp.startDate).format('YYYY-MM-DD')} - {exp.endDate ? dayjs(exp.endDate).format('YYYY-MM-DD') : 'Ongoing'}
+                </Text>
+                
+                <Text style={{
+                  ...Fonts.grayColor14Regular,
+                  color: theme.colors.grey0,
+                }}
+                >
+                  {exp.location}
+                </Text>
 
-            <Text 
-              ellipsizeMode='clip'
-              numberOfLines={2}
-              style={{
-                ...Fonts.grayColor14Regular,
-                color: theme.colors.grey0,
-              }}
-            >
-              {exp.description}
-            </Text>
+                <Text 
+                  ellipsizeMode='clip'
+                  numberOfLines={2}
+                  style={{
+                    ...Fonts.grayColor14Regular,
+                    color: theme.colors.grey0,
+                  }}
+                >
+                  {exp.description}
+                </Text>
 
-            {index < array.length - 1 && 
-              <Divider color={theme.colors.greyOutline} />
-            }
+              </View>
+              
+              <View>
+                <TouchableOpacity
+                  style={{
+                    ...styles.itemEditButton,
+                    backgroundColor: theme.colors.background
+                  }}
+                  onPress={() => {}} 
+                >
+                  <MaterialCommunityIcons 
+                    name='pencil' 
+                    size={24} 
+                    color={ theme.mode === 'light'
+                      ? theme.colors.grey3
+                      : theme.colors.white
+                    }
+                  />
+                </TouchableOpacity>
+
+              </View>
+           
+              </View>
+
+              {index < array.length - 1 && 
+                <Divider color={theme.colors.greyOutline} />
+              }
 
           </View>
         ))
@@ -101,4 +139,11 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     gap: theme.spacing?.md,
   },
+  itemEditButton: {
+    width: 36,
+    height: 36,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 8,
+  }
 })

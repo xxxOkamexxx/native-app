@@ -12,7 +12,7 @@ import { jwtDecode } from "jwt-decode";
 import { IUser } from "@/types/UserTypes"
 import { AxiosError } from "axios";
 import { getItem } from "expo-secure-store";
-import { GetUserById } from "@/api/backend";
+import { getUserById } from "@/api/backend";
 
 
 export interface IAuthState {
@@ -108,8 +108,8 @@ export function AuthProvider (props: any) {
         let response;
       
         try {
-          response = await GetUserById(decoded.userId);
-          // console.log("GetUserById response:", response); // ✅
+          response = await getUserById(decoded.userId);
+          // console.log("getUserById response:", response); // ✅
         } catch (err) {
           console.error("Error fetching user data:", err);
           throw new Error("Failed to fetch user data");

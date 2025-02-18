@@ -4,10 +4,25 @@ export {
 
 export {
   updateStaff,
+  getExperience,
+  addExperience,
+  updateExperience,
+  deleteExperience,
+  getEducation,
+  addEducation,
+  updateEducation,
+  deleteEducation,
+  getStaffSkills,
+  addStaffSkill,
+  deleteStaffSkill,
+  getStaffLanguages,
+  updateStaffLanguage,
+  addStaffLanguage,
+  deleteStaffLanguage,
 } from "./staff"
 
 export {
-  GetUserById,
+  getUserById,
 } from "./user"
 
 export {

@@ -11,7 +11,7 @@ import pageStyle from '@/constants/Styles';
 import { theme } from '@/constants/Theme';
 import PerofileIndex from '@/components/Pages/TabsComponents/StaffProfile';
 import { Colors } from '@/constants/Colors';
-import { GetUserById, getUserPostsAndShares } from '@/api/backend';
+import { getUserById, getUserPostsAndShares } from '@/api/backend';
 
 
 
@@ -37,7 +37,7 @@ const Page = () => {
     } = useQuery({
       queryKey: ["user-data"],
       queryFn: async () => {
-        const response = await GetUserById(userId!)      
+        const response = await getUserById(userId!)      
 
         return response;
       },

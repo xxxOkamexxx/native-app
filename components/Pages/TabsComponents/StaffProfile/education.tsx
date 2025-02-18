@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet } from 'react-native'
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 import React from 'react'
 import { useRouter } from 'expo-router';
 
@@ -32,32 +32,67 @@ const Education = ({user, showEditButton}: props) => {
         .slice(0, 2)
         .map((edu, index, array) => (
           <View key={edu.id}>
-            <Text 
+            <View
               style={{
-                ...Fonts.grayColor14Bold,
-                color: theme.colors.grey0,
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+                width: '100%'
               }}
             >
-              {edu.institution}        
-            </Text>
+              <View
+                style={{
+                  flex: 2
+                }}
+              >
+                <Text 
+                  style={{
+                    ...Fonts.grayColor14Bold,
+                    color: theme.colors.grey0,
+                  }}
+                >
+                  {edu.institution}        
+                </Text>
 
-            <Text 
-              style={{
-                ...Fonts.grayColor14Regular,
-                color: theme.colors.grey0,
-              }}
-            >
-              {edu.name}
-            </Text>
+                <Text 
+                  style={{
+                    ...Fonts.grayColor14Regular,
+                    color: theme.colors.grey0,
+                  }}
+                >
+                  {edu.name}
+                </Text>
 
-            <Text 
-              style={{
-                ...Fonts.grayColor14Regular,
-                color: theme.colors.grey3,
-              }}
-            >
-              {dayjs(edu.startDate).format('YYYY-MM-DD')} - {edu.endDate ? dayjs(edu.endDate).format('YYYY-MM-DD') : 'Ongoing'}
-            </Text>
+                <Text 
+                  style={{
+                    ...Fonts.grayColor14Regular,
+                    color: theme.colors.grey3,
+                  }}
+                >
+                  {dayjs(edu.startDate).format('YYYY-MM-DD')} - {edu.endDate ? dayjs(edu.endDate).format('YYYY-MM-DD') : 'Ongoing'}
+                </Text>
+              </View>
+
+              <View>
+                <TouchableOpacity
+                  style={{
+                    ...styles.itemEditButton,
+                    backgroundColor: theme.colors.background
+                  }}
+                  onPress={() => {}} 
+                >
+                  <MaterialCommunityIcons 
+                    name='pencil' 
+                    size={24} 
+                    color={ theme.mode === 'light'
+                      ? theme.colors.grey3
+                      : theme.colors.white
+                    }
+                  />
+                </TouchableOpacity>
+
+              </View>
+              
+            </View> 
 
             {index < array.length - 1 && 
               <Divider color={theme.colors.greyOutline} />
@@ -82,4 +117,11 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     gap: theme.spacing?.md,
   },
+  itemEditButton: {
+    width: 36,
+    height: 36,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 8,
+  }
 })

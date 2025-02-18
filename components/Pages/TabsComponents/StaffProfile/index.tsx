@@ -36,9 +36,7 @@ interface ThemedContainerProps {
   children: React.ReactNode;
   showFooter: boolean;
   footerChildren?: React.ReactNode;
-  showAddBtn: boolean;
-  onPressEdit?: () => void
-  onPressAdd?: () => void
+  btnChildren?: React.ReactNode;
 }
 
 
@@ -94,8 +92,7 @@ const PerofileIndex = ({user, showEditButton, post, refetch}: props) => {
     }
   }
 
-  const ItemContainer: React.FC<ThemedContainerProps> = (props) => {
-    
+  const ItemContainer: React.FC<ThemedContainerProps> = (props) => {   
     return (
       <View
         style={{
@@ -127,43 +124,10 @@ const PerofileIndex = ({user, showEditButton, post, refetch}: props) => {
               gap: theme.spacing.sm,
             }}
           >
-            { showEditButton && props.showAddBtn && 
-              <TouchableOpacity
-                style={{
-                  ...styles.itemEditButton,
-                  backgroundColor: theme.colors.background
-                }}
-                onPress={props.onPressAdd}
-              >
-                <MaterialCommunityIcons 
-                  name='plus' 
-                  size={24} 
-                  color={ theme.mode === 'light'
-                    ? theme.colors.grey3
-                    : theme.colors.white
-                  }
-                />
-              </TouchableOpacity>
-            }
-
-            { showEditButton &&
-              
-              <TouchableOpacity
-                style={{
-                  ...styles.itemEditButton,
-                  backgroundColor: theme.colors.background
-                }}
-                onPress={props.onPressEdit}
-              >
-                <MaterialCommunityIcons 
-                  name='pencil' 
-                  size={24} 
-                  color={ theme.mode === 'light'
-                    ? theme.colors.grey3
-                    : theme.colors.white
-                  }
-                />
-              </TouchableOpacity>
+            {showEditButton &&
+              <>
+                {props.btnChildren}
+              </>
             }
           </View>
         </View>
@@ -276,114 +240,109 @@ const PerofileIndex = ({user, showEditButton, post, refetch}: props) => {
         title={t("information")}
         children={<Information user={user} showEditButton={showEditButton}/>}
         showFooter={false}
-        showAddBtn={false}
-        onPressEdit={() => setOpenEditInfoDialog(!openEditInfoDialog)}
+        btnChildren={
+          <TouchableOpacity
+            style={{
+              ...styles.itemEditButton,
+              backgroundColor: theme.colors.background
+            }}
+            onPress={() => setOpenEditInfoDialog(!openEditInfoDialog)}
+          >
+            <MaterialCommunityIcons 
+              name='pencil' 
+              size={24} 
+              color={ theme.mode === 'light'
+                ? theme.colors.grey3
+                : theme.colors.white
+              }
+            />
+          </TouchableOpacity>
+        }
       />
 
       <ItemContainer
         title={t("about")}
         children={<About user={user} showEditButton={showEditButton}/>}
         showFooter={false}
-        showAddBtn={false}
-        onPressEdit={() => setOpenEditAboutDialog(true)}
+        btnChildren={
+          <TouchableOpacity
+            style={{
+              ...styles.itemEditButton,
+              backgroundColor: theme.colors.background
+            }}
+            onPress={() => setOpenEditAboutDialog(true)}
+          >
+            <MaterialCommunityIcons 
+              name='pencil' 
+              size={24} 
+              color={ theme.mode === 'light'
+                ? theme.colors.grey3
+                : theme.colors.white
+              }
+            />
+          </TouchableOpacity>
+        }
       />
 
-      {/* Activity */}
-      <View
-        style={{
-          ...styles.itemContainer,
-          backgroundColor: theme.colors.secondary
-        }}
-      >
-        {/* Item Header */}
-        <View
-          style={{
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            paddingBottom: theme.spacing.md,
-            alignItems: 'center',
-          }}
-        >
-          <Text
+      <ItemContainer
+        title={t("activity")}
+        children={<Activity post={post} />}
+        showFooter={true}
+        btnChildren={
+          <TouchableOpacity
             style={{
-              ...Fonts.grayColor16Bold,
-              color: theme.colors.grey0,
+              borderRadius: theme.spacing.sm,
+              borderColor: theme.colors.primary,
+              borderWidth: 2,
+              padding: theme.spacing.sm,
             }}
           >
-            {`${t("activity")}`}
-          </Text>
-
-          <View
-            style={{
-              flexDirection: 'row',
-              gap: theme.spacing.sm,
-            }}
-          >
-
-            { showEditButton &&             
-              <TouchableOpacity
-                style={{
-                  borderRadius: theme.spacing.sm,
-                  borderColor: theme.colors.primary,
-                  borderWidth: 2,
-                  padding: theme.spacing.sm,
-                }}
-              >
-                <Text
-                  style={{
-                    ...Fonts.primaryColor14Medium,
-                    color: theme.colors.primary
-                  }}
-                >
-                  {`${t("create-post")}`}
-                </Text>
-              </TouchableOpacity>
-            }
-          </View>
-        </View>
-        
-        <Divider color={theme.colors.greyOutline} />
-
-        {/* Item */}
-        <View
-          style={{ paddingVertical: theme.spacing.md}}
-        >
-          <Activity post={post} />
-        </View>
-
-  
-        <Divider color={theme.colors.greyOutline} />
-       
-
-        {/* Item Footer */}
-
-          <View
-            style={{ 
-              alignItems: 'center',
-              justifyContent:'center',
-              marginTop: theme.spacing.md,
-            }}
-          >
-            <TouchableOpacity>
-              <Text
-                style={{
-                  ...Fonts.grayColor14Medium,
-                  color: theme.colors.grey0
-                }}
-              >
-                {`${t("see-all-posts")}`}
-              </Text>
-            </TouchableOpacity>
-          </View>
-    
-      </View>  
-
+            <Text
+              style={{
+                ...Fonts.primaryColor14Medium,
+                color: theme.colors.primary
+              }}
+            >
+              {`${t("create-post")}`}
+            </Text>
+          </TouchableOpacity>
+        }
+        footerChildren={
+          <TouchableOpacity>
+            <Text
+              style={{
+                ...Fonts.grayColor14Medium,
+                color: theme.colors.grey0
+              }}
+            >
+              {`${t("see-all-posts")}`}
+            </Text>
+          </TouchableOpacity>
+        }
+      />
 
       <ItemContainer
         title={t("experiences")}
         children={<Experience user={user} showEditButton={showEditButton} />}
+        btnChildren={
+          <TouchableOpacity
+            style={{
+              ...styles.itemEditButton,
+              backgroundColor: theme.colors.background
+            }}
+            onPress={() => setOpenAddExperiensDialog(true)}
+          >
+            <MaterialCommunityIcons 
+              name='plus' 
+              size={24} 
+              color={ theme.mode === 'light'
+                ? theme.colors.grey3
+                : theme.colors.white
+              }
+            />
+          </TouchableOpacity>
+        }
         showFooter={true}
-        showAddBtn={true}
         footerChildren={
           <TouchableOpacity>
             <Text
@@ -401,8 +360,25 @@ const PerofileIndex = ({user, showEditButton, post, refetch}: props) => {
       <ItemContainer
         title={t("educations")}
         children={<Education user={user} showEditButton={showEditButton} />}
+        btnChildren={
+          <TouchableOpacity
+            style={{
+              ...styles.itemEditButton,
+              backgroundColor: theme.colors.background
+            }}
+            onPress={() => setOpenAddEducationDialog(true)}
+          >
+            <MaterialCommunityIcons 
+              name='plus' 
+              size={24} 
+              color={ theme.mode === 'light'
+                ? theme.colors.grey3
+                : theme.colors.white
+              }
+            />
+          </TouchableOpacity>
+        }
         showFooter={true}
-        showAddBtn={true}
         footerChildren={
           <TouchableOpacity>
             <Text
@@ -433,7 +409,9 @@ const PerofileIndex = ({user, showEditButton, post, refetch}: props) => {
                 style={{
                   padding:theme.spacing.sm, 
                   backgroundColor: theme.colors.primary, 
-                  borderRadius:8
+                  borderRadius:8,
+                  flexDirection: 'row',
+                  gap: theme.spacing.sm
                 }}
               >
                 <Text 
@@ -444,12 +422,35 @@ const PerofileIndex = ({user, showEditButton, post, refetch}: props) => {
                 >
                   {skill.name}
                 </Text>
+
+                {showEditButton && 
+                  <TouchableOpacity>
+                    <MaterialCommunityIcons name='close-circle' color={theme.colors.white} size={16} />
+                  </TouchableOpacity>
+                }
               </View>
             ))}
           </View>
         }
+        btnChildren={
+          <TouchableOpacity
+            style={{
+              ...styles.itemEditButton,
+              backgroundColor: theme.colors.background
+            }}
+            onPress={() => setOpenAddSkillsDialog(true)}
+          >
+            <MaterialCommunityIcons 
+              name='plus' 
+              size={24} 
+              color={ theme.mode === 'light'
+                ? theme.colors.grey3
+                : theme.colors.white
+              }
+            />
+          </TouchableOpacity>
+        }
         showFooter={false}
-        showAddBtn={true}
       /> 
 
       <ItemContainer
@@ -493,8 +494,44 @@ const PerofileIndex = ({user, showEditButton, post, refetch}: props) => {
             )}
           </View>
         }
+        btnChildren={
+          <>
+            <TouchableOpacity
+              style={{
+                ...styles.itemEditButton,
+                backgroundColor: theme.colors.background
+              }}
+              onPress={() => setOpenAddLanguageDialog(true)}
+            >
+              <MaterialCommunityIcons 
+                name='plus' 
+                size={24} 
+                color={ theme.mode === 'light'
+                  ? theme.colors.grey3
+                  : theme.colors.white
+                }
+              />
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              style={{
+                ...styles.itemEditButton,
+                backgroundColor: theme.colors.background
+              }}
+              onPress={() => setOpenEditLanguageDialog(true)} 
+            >
+              <MaterialCommunityIcons 
+                name='pencil' 
+                size={24} 
+                color={ theme.mode === 'light'
+                  ? theme.colors.grey3
+                  : theme.colors.white
+                }
+              />
+            </TouchableOpacity>
+          </>
+        }
         showFooter={false}
-        showAddBtn={true}
       /> 
 
       {/* Dialog */}
@@ -566,3 +603,42 @@ const styles = StyleSheet.create({
     borderRadius: 8,
   }
 });
+
+// { showEditButton && props.showBtnContainer && 
+//   <TouchableOpacity
+//     style={{
+//       ...styles.itemEditButton,
+//       backgroundColor: theme.colors.background
+//     }}
+//     onPress={props.onPressAdd}
+//   >
+//     <MaterialCommunityIcons 
+//       name='plus' 
+//       size={24} 
+//       color={ theme.mode === 'light'
+//         ? theme.colors.grey3
+//         : theme.colors.white
+//       }
+//     />
+//   </TouchableOpacity>
+// }
+
+// { showEditButton &&
+  
+//   <TouchableOpacity
+//     style={{
+//       ...styles.itemEditButton,
+//       backgroundColor: theme.colors.background
+//     }}
+//     onPress={props.onPressEdit}
+//   >
+//     <MaterialCommunityIcons 
+//       name='pencil' 
+//       size={24} 
+//       color={ theme.mode === 'light'
+//         ? theme.colors.grey3
+//         : theme.colors.white
+//       }
+//     />
+//   </TouchableOpacity>
+// }

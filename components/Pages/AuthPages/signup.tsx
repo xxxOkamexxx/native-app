@@ -5,7 +5,7 @@ import { useRouter, Link } from 'expo-router'
 
 import { useTranslation } from "react-i18next";
 
-import { GetUserById } from '@/api/backend'
+import { getUserById } from '@/api/backend'
 import { CheckBox, Text } from '@rneui/themed'
 import { useTheme } from '@rneui/themed'
 import { Fonts, Sizes, theme } from '@/constants/Theme'
