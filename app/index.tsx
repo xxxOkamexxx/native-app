@@ -1,7 +1,7 @@
 import { View, TouchableOpacity, StyleSheet} from 'react-native'
 import React, { useState } from 'react'
 import { Switch, useTheme, useThemeMode, Text } from '@rneui/themed'
-import { setItem } from "@/utils/asyncStorage";
+
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useTranslation } from "react-i18next";
 import Button from '@/components/UI/Button';
@@ -15,20 +15,7 @@ const App = () => {
   const router = useRouter();
   const [ loading, setLoading ] = useState(false)
 
-    //move to Setting-page later
-    //--- from here ---
-    const { mode, setMode } = useThemeMode();
-      const handleSwitchTheme = async (value: boolean) => {
-        // Call setMode to update the theme mode
-        // console.log('value:', value); 
-        
-        setMode(value ? "dark" : "light");
-  
-        // Save the select theme mode in localStrage
-        await setItem("theme", value ? "dark" : "light");
-      }
-      // console.log('mode:', mode);
-    // ---- to here ----
+    
   
     // console.log('theme:', theme.mode);
     const handleOnPress = () => {
@@ -94,15 +81,6 @@ const App = () => {
           loading={loading}
           onPress={handleOnPress}
         />
-
-
-        {/* move to Setting-page later */}
-        <TouchableOpacity>
-          <Switch
-            value={mode === "dark"}
-            onValueChange={handleSwitchTheme}
-          />
-        </TouchableOpacity>
 
       </SafeAreaView>
     </View>

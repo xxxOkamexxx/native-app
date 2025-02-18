@@ -17,6 +17,7 @@ import { SkeletonImage } from '@/components/Skeleton/skeleton-image';
 export const unstable_settings = {
   initialRouteName: "home",
 };
+
 export function TabBarIcon(props: { 
   name: React.ComponentProps<typeof MaterialCommunityIcons>["name"]; 
   color: string; size: number; 
@@ -60,9 +61,9 @@ const _layout = () => {
           },
           tabBarItemStyle: {
             backgroundColor: theme.colors.background,
-            borderColor: "transparent",
-            borderWidth: 0,
-            shadowColor: "transparent",
+            borderColor: theme.colors.greyOutline,
+            borderWidth: 1,
+            shadowColor: theme.colors.background,
           },
           tabBarActiveTintColor: theme.colors.primary,
           tabBarInactiveTintColor: theme.colors.grey2,
@@ -87,12 +88,19 @@ const _layout = () => {
             ),
             tabBarLabel: t("tab-bar-overview"),
             tabBarIcon: ({ focused }) => (
-              <TabBarIcon
-                name={focused ? "home" : "home-outline"}
-                isActive={focused}
-                size={32}
-                color={focused ? theme.colors.primary : theme.mode === "light" ? theme.colors.grey3 : theme.colors.white}
-              />
+              userData?.roleId === 3 
+              ? <TabBarIcon
+                  name={focused ? "home" : "home-outline"}
+                  isActive={focused}
+                  size={32}
+                  color={focused ? theme.colors.primary : theme.mode === "light" ? theme.colors.grey3 : theme.colors.white}
+                />
+              : <TabBarIcon
+                  name={focused ? "view-dashboard" : "view-dashboard-outline"}
+                  isActive={focused}
+                  size={30}
+                  color={focused ? theme.colors.primary : theme.mode === "light" ? theme.colors.grey3 : theme.colors.white}
+                />
             ),
           }} 
         />
@@ -224,7 +232,7 @@ const PageHeader = (data: any, isLoading: boolean) => {
     <View
       style={{
         width: "auto",
-        backgroundColor: theme.colors.background,
+        backgroundColor: theme.colors.secondary,
         paddingHorizontal: Sizes.fixPadding * 1.5,
         paddingVertical: Sizes.fixPadding,
       }}

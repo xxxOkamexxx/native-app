@@ -239,6 +239,7 @@ export const Fonts = {
   primaryColor14Bold: {
     fontSize: 14.0,
     fontFamily: "PoppinsBold",
+    color: theme.mode === 'light' 
   },
 
   primaryColor16Regular: {
@@ -248,7 +249,7 @@ export const Fonts = {
 
   primaryColor16Medium: {
     fontSize: 16.0,
-    fontFamily: "Poppins",
+    fontFamily: "PoppinsMedium",
   },
 
   primaryColor16Bold: {
@@ -264,6 +265,11 @@ export const Fonts = {
   primaryColor20Bold: {
     fontSize: 20.0,
     fontFamily: "PoppinsBold",
+  },
+
+  grayColor14Regular: {
+    fontSize: 14.0,
+    fontFamily: "Poppins",
   },
 
   grayColor14Medium: {

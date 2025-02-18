@@ -2,8 +2,8 @@
 import React from "react";
 import { View, TouchableOpacity, StyleSheet, Text, Platform } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { Avatar, useTheme } from "@rneui/themed";
-import { Sizes } from "@/constants/Theme";
+import { Avatar, Divider, useTheme } from "@rneui/themed";
+import { Sizes, theme } from "@/constants/Theme";
 import { useAuth } from "@/contexts/authContext";
 
 const isIOS = Platform.OS === "ios";
@@ -13,6 +13,8 @@ export default function CustomTabBar({ state, descriptors, navigation }: any) {
   const { authState } = useAuth();
 
   const user = authState.userData
+  const avatar = user?.profileImage
+  
 
   return (
     <View
@@ -22,6 +24,8 @@ export default function CustomTabBar({ state, descriptors, navigation }: any) {
         borderColor: theme.colors.divider,
       }}
     >
+      
+
       {state.routes.map((route: any, index: number) => {
         const { options } = descriptors[route.key] 
         const label = options.tabBarLabel || route.name
@@ -39,16 +43,14 @@ export default function CustomTabBar({ state, descriptors, navigation }: any) {
                 styles.tabBarItem,
                 styles.middleTab,
                 {
-                  backgroundColor: isFocused ? theme.colors.primary : theme.mode === "light" ? theme.colors.grey5 : theme.colors.grey2,
+                  backgroundColor: isFocused ? theme.colors.secondary : theme.mode === "light" ? theme.colors.grey5 : theme.colors.grey2,
                 },
               ]}
             >
-              
-              {user?.profileImage 
-                ? <Avatar size={60} rounded source={{uri: user.profileImage}} />
-                : <Avatar size={60} rounded icon={{name: "account" }} containerStyle={{ backgroundColor: theme.colors.grey2}} />
+              {avatar 
+                ? <Avatar size={60} rounded source={{uri: user?.profileImage}} />      
+                :<Avatar size={60} rounded icon={{name: "account", type: "material-community"}} containerStyle={{ backgroundColor: theme.colors.grey3 }}  />
               }
-
             </TouchableOpacity>
           );
         } else {
@@ -76,12 +78,13 @@ export default function CustomTabBar({ state, descriptors, navigation }: any) {
 
 const styles = StyleSheet.create({
   tabBarContainer: {
+    paddingHorizontal: theme.spacing?.md,
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "flex-end",
     height: 88,
     borderWidth: 0,
-    zIndex: 1, // Ensure the TabBar stays on top of the TabView
+    zIndex: 1, // Ensure the TabBar stays on top of the TabView,
   },
   tabBarItem: {
     alignItems: "center",

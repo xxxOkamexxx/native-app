@@ -2,18 +2,53 @@ import * as Location from "expo-location"
 
 export interface IUser {
   id: number;
-  title: string;
-  firstName: string;
-  lastName: string;
-  phoneNumber: string
+  title?: string;
+  firstName?: string;
+  lastName?: string;
   email: string;
-  country: string;
-  city: string;
-  street: string;
-  postalCode: string;
-  about: string;
-  profileImage: string;
+  street?: string;
+  city?: string;
+  postalCode?: string;
+  country?: string;
+  profileImage?: string;
+  phoneNumber?: string;
+  about?: string;
   roleId: number;
-  username: string;
-  password?: string | undefined;
+  companyId?: number;
+  companyName?: string;
+  educations?: IEducation[];
+  skills?: ISkill[];
+  languages?: ILanguage[];
+  experience?: IExperience[];
+}
+
+
+export interface IExperience {
+  id: number;
+  position: string;
+  description: string;
+  companyName: string;
+  location: string;
+  startDate: string; // ISO 8601 format
+  endDate: string; // ISO 8601 format
+}
+
+export interface ILanguage {
+  id: number
+  name: string 
+  rating: number;
+}
+
+export interface IEducation {
+  id: number;
+  name: string;
+  institution: string;
+  startDate: string;
+  endDate: string; // ISO 8601 format
+  staffId: number // ISO 8601 format
+}
+
+export interface ISkill {
+  id: number
+  name: string
 }

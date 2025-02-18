@@ -14,15 +14,18 @@
 
   "first-name": "First name",
   "last-name": "Last name",
+  "full-name": "Full name",
   "title": "Title",
   "telephone": "Telephone",
   "country": "Country",
   "city": "City",
   "street": "Street",
   "postal-code": "Postal code",
-  "About": "About",
+  "location": "Location",
+  "about": "About",
   "skills": "Skills",
   "languages": "Languages",
+  "add-language-skills": "Add language skills",
   
   "name": "Name",
   "institution": "Institution",
@@ -30,7 +33,6 @@
   "position": "Position",
   "description": "Description",
   "company-name": "Company name",
-  "location": "Location",
   "organisation-number": "Organisation no.",
 
   "start-date": "Start date",
@@ -47,6 +49,18 @@
   "start-message": "Welcome to Staffin!",
   "start-sub-text": "Connect with professionals who inspire you",
   "start-button-text": "Get Started",
+  "success-update-message": "Successfully updated!",
+  "failed-update-message":"Update failed.",
+
+  "information": "Information",
+  "activity": "Activity",
+  "experiences": "Experiences",
+  "educations": "Educations",  
+  "create-post": "Create post",
+
+  "read-more": "Read more...",
+  "see-more": "See more",
+  "see-all-posts": "See all posts",
 
   "search": "Search",
   "log-out": "Log out"

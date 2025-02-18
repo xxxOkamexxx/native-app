@@ -19,10 +19,11 @@ interface Props {
   errorMessage?: string;
   disabled?: boolean;
   secureTextEntry?: boolean;
-  keyboardType?: 'default' | 'number-pad' |'decimal-pad' | 'numeric' | 'email-address' | 'phone-pad' | 'url'
+  keyboardType?: 'default' | 'number-pad' |'decimal-pad' | 'numeric' | 'email-address' | 'phone-pad' | 'url';
+  multiline?: boolean;
 }
 
-const TextField: React.FC<Props> = (props) => {
+export const TextField: React.FC<Props> = (props) => {
   const { theme } = useTheme();
 
   return (
@@ -63,6 +64,51 @@ const TextField: React.FC<Props> = (props) => {
   );
 };
 
+export const MultiTextField: React.FC<Props> = (props) => {
+  const { theme } = useTheme();
+
+  return (
+    <View style={{ ...styles.container, borderColor: theme.colors.divider }}>
+      <TextInput
+        {...props}
+        style={{
+          ...styles.input,
+          ...props.styles,
+          ...Fonts.grayColor14Regular,
+          borderColor: theme.colors.divider,
+          backgroundColor: theme.colors.secondary,
+          width: "100%",
+          height: 150,
+          color: theme.colors.grey0,
+        }}
+        secureTextEntry={props.secureTextEntry}
+        placeholder={props.placeholder}
+        value={props.value}
+        placeholderTextColor={theme.colors.grey2}
+        cursorColor={theme.colors.primary}
+        selectionColor={theme.colors.primary}
+        onChangeText={props.onChangeText}
+        onBlur={props.onBlur}
+        autoCapitalize="none"
+        multiline={true}
+      />
+      {props.errorMessage ? (
+        <Text
+          style={{
+            color: theme.colors.error,
+            fontSize: 10,
+            marginHorizontal: theme.spacing.xs,
+          }}
+        >
+          {props.errorMessage}
+        </Text>
+      ) : null}
+    </View>
+  );
+};
+
+
+
 const styles = StyleSheet.create({
   container: {
     width: "100%",
@@ -79,4 +125,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default TextField;
+

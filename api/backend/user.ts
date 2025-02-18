@@ -7,8 +7,7 @@ export const GetUserById = async (userId: string) => {
 
     return data;
   } catch (error) {
-    console.log(error);
-    
+    console.log(error);    
   }
 }
 

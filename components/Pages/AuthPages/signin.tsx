@@ -11,7 +11,7 @@ import { GetUserById } from '@/api/backend'
 import { Text } from '@rneui/themed'
 import { Fonts, Sizes, theme } from '@/constants/Theme'
 
-import TextField from '@/components/UI/Input/TextField'
+import { TextField } from '@/components/UI/Input/TextField'
 import { Formik } from "formik";
 import * as Yup from "yup";
 import Button from '@/components/UI/Button'
@@ -92,8 +92,8 @@ const SignInPage = () => {
                     }}
                   >
                     <Text style={styles.inputLabel}>
-                      {" "}
-                      {t("e-mail")}{" "}
+                     
+                      {t("e-mail")}
                     </Text>
                     <TextField
                       placeholder={t("e-mail")}
@@ -117,8 +117,7 @@ const SignInPage = () => {
                     }}
                   >
                     <Text style={styles.inputLabel}>
-                      {" "}
-                      {t("password")}{" "}
+                      {t("password")}
                     </Text>
                     <TextField
                       placeholder={t("password")}

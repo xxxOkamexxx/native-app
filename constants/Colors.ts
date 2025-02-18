@@ -4,8 +4,8 @@ const tintColorDark = '#fff';
 export const Colors = {
   light: {
     background: "rgb(248, 247, 250)",
-    primary: "#7367F0",
-    secondary: "#fff",
+    primary: "#252525",
+    secondary: "#D4AF35",
     greyOutline: "rgb(133, 131, 138)",
     divider: "rgb(229, 229, 230)",
     grey0: "rgb(15, 15, 15)",
@@ -18,8 +18,8 @@ export const Colors = {
   },
   dark: {
     background: "#25293C",
-    primary: "#5f58c0",
-    secondary: "#3B405B",
+    primary: "#D4AF35",
+    secondary: "#252525",
     greyOutline: "rgb(144, 157, 170)",
     divider: "rgb(79, 83, 103)",
     grey0: "rgb(241, 241, 241)",

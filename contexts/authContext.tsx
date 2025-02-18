@@ -165,7 +165,7 @@ export function AuthProvider (props: any) {
         });
         setSession(token);
         // console.log('session:', session) // ✅
-  
+        
         toast.show("Login successful", {
           type: "success",
           placement: "top",
@@ -182,7 +182,7 @@ export function AuthProvider (props: any) {
       const err = error as AxiosError
       toast.show(
         `${err as AxiosError}.response?.data?.title`,
-        {type: 'error'}
+        {type: "error"}
       );
 
     } finally {

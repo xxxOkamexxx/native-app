@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { ScrollView, View, StyleSheet } from 'react-native'
+import { ScrollView, View, StyleSheet, TouchableOpacity } from 'react-native'
 import { useQuery } from '@tanstack/react-query'
 import { useRouter, Link } from 'expo-router'
 
@@ -10,7 +10,7 @@ import { CheckBox, Text } from '@rneui/themed'
 import { useTheme } from '@rneui/themed'
 import { Fonts, Sizes, theme } from '@/constants/Theme'
 
-import TextField from '@/components/UI/Input/TextField'
+import { TextField } from '@/components/UI/Input/TextField'
 import { Formik } from "formik";
 import * as Yup from "yup";
 import Button from '@/components/UI/Button'
@@ -41,9 +41,11 @@ const SignUpPage = () => {
   const { theme } = useTheme()
   const { t } = useTranslation();
   const router = useRouter()
+  const [showPassword, setShowPassword] = useState<boolean>(false)
 
   const [role, setRole] = useState<"staff"|"admin">('staff')
   const [checked, setChecked] = useState<boolean>(false)
+
 
   // console.log("isLoading:", isLoading);
   useEffect(() => {
@@ -137,8 +139,7 @@ const SignUpPage = () => {
                       }}
                     >
                       <Text style={styles.inputLabel}>
-                        {" "}
-                        {t("user-name")}{" "}
+                        {t("user-name")}
                       </Text>
                       <TextField
                         placeholder={t("user-name")}
@@ -162,8 +163,7 @@ const SignUpPage = () => {
                       }}
                     >
                       <Text style={styles.inputLabel}>
-                        {" "}
-                        {t("e-mail")}{" "}
+                        {t("e-mail")}
                       </Text>
                       <TextField
                         placeholder={t("e-mail")}
@@ -187,8 +187,7 @@ const SignUpPage = () => {
                       }}
                     >
                       <Text style={styles.inputLabel}>
-                        {" "}
-                        {t("password")}{" "}
+                        {t("password")}
                       </Text>
                       <TextField
                         placeholder={t("password")}
@@ -197,7 +196,7 @@ const SignUpPage = () => {
                         value={values.password}
                         name={"password"}
                         type={"password"}
-                        secureTextEntry={true}
+                        secureTextEntry={showPassword}
                         errorMessage={errors.password}
                       />
                     </Animated.View>
@@ -272,8 +271,7 @@ const SignUpPage = () => {
                       }}
                     >
                       <Text style={styles.inputLabel}>
-                        {" "}
-                        {t("company-name")}{" "}
+                        {t("company-name")}
                       </Text>
                       <TextField
                         placeholder={t("company-name")}
@@ -297,8 +295,7 @@ const SignUpPage = () => {
                       }}
                     >
                       <Text style={styles.inputLabel}>
-                        {" "}
-                        {t("organisation-number")}{" "}
+                        {t("organisation-number")}
                       </Text>
                       <TextField
                         placeholder={t("organisation-number")}
@@ -322,8 +319,7 @@ const SignUpPage = () => {
                       }}
                     >
                       <Text style={styles.inputLabel}>
-                        {" "}
-                        {t("e-mail")}{" "}
+                        {t("e-mail")}
                       </Text>
                       <TextField
                         placeholder={t("e-mail")}
@@ -347,8 +343,7 @@ const SignUpPage = () => {
                       }}
                     >
                       <Text style={styles.inputLabel}>
-                        {" "}
-                        {t("password")}{" "}
+                        {t("password")}
                       </Text>
                       <TextField
                         placeholder={t("password")}
@@ -444,4 +439,3 @@ const styles = StyleSheet.create({
   },
 });
 
-{/*  */}

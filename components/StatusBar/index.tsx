@@ -32,7 +32,7 @@ export default function MyStatusBar({ children, onPress, style, showBackIcon = f
       />
       <SafeAreaView 
         style={{ 
-          backgroundColor: theme.colors.background, 
+          backgroundColor: theme.colors.secondary, 
           marginTop: isIOS 
             ? (StatusBar.currentHeight || 0) - 25 
             : (StatusBar.currentHeight || 0) - 30

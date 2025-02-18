@@ -24,6 +24,7 @@ import { AuthProvider } from "@/contexts/authContext";
 const RootLayout = () => {
   const [appIsReady, setAppIsReady] = useState(false);
 
+  // 🚧 Add Staffin font 'Coolvetica' 🚧
   const [loaded, error] = useFonts({
     Poppins: require("@/assets/fonts/Poppins-Regular.ttf"),
     PoppinsBold: require("@/assets/fonts/Poppins-Bold.ttf"),
@@ -45,10 +46,26 @@ const RootLayout = () => {
     return null;
   }
 
-  return (  
-    <AuthProvider> 
-      <RootLayoutNav />
-    </AuthProvider>   
+  return ( 
+    <ToastProvider
+          placement="top"
+          swipeEnabled={true}
+          style={{ marginVertical: 5 }}
+          animationType="slide-in"
+          duration={5000}
+          animationDuration={250}
+          offsetTop={50}
+          offsetBottom={50}
+          dangerColor="#ef4444"
+          warningColor="#f59e0b"
+          successColor="#22c55e"
+          normalColor="#a3a3a3"
+          successIcon={<MaterialIcons name="check-circle" color={"white"} size={25} />}
+        >
+      <AuthProvider> 
+        <RootLayoutNav />
+      </AuthProvider>   
+    </ToastProvider> 
   );
 };
 
@@ -102,22 +119,7 @@ function RootLayoutNav() {
 
   return (
     <ThemeProviderUI theme={theme} >
-      <QueryClientProvider client={queryClient} >
-        <ToastProvider
-          placement="top"
-          swipeEnabled={true}
-          style={{ marginVertical: 5 }}
-          animationType="slide-in"
-          duration={5000}
-          animationDuration={250}
-          offsetTop={50}
-          offsetBottom={50}
-          dangerColor="#ef4444"
-          warningColor="#f59e0b"
-          successColor="#22c55e"
-          normalColor="#a3a3a3"
-          successIcon={<MaterialIcons name="check-circle" color={"white"} size={25} />}
-        >
+      <QueryClientProvider client={queryClient} >     
             <SafeAreaProvider>
               <Stack>
                 <Stack.Screen name="index" options={{headerShown: false}} />
@@ -125,7 +127,6 @@ function RootLayoutNav() {
                 <Stack.Screen name="(app)/(tabs)" options={{headerShown: false}} />
               </Stack>
             </SafeAreaProvider>
-        </ToastProvider>
       </QueryClientProvider>
     </ThemeProviderUI>
   )}
