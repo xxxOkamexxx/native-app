@@ -1,37 +1,38 @@
 import React, { useState } from 'react'
 import { View, Text, TouchableOpacity, Modal, SafeAreaView, StyleSheet, ScrollView } from 'react-native'
 import { useRouter } from 'expo-router';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import { useToast } from "react-native-toast-notifications";
 import { Formik } from 'formik';
 
-import { updateStaff } from '@/api/backend';
+import { getExperience, updateExperience, updateStaff } from '@/api/backend';
 
-import { IUser } from '@/types/UserTypes';
+import { IEducation, IExperience, IUser } from '@/types/UserTypes';
 
 import { useTheme } from '@rneui/themed';
 import { useTranslation } from 'react-i18next';
 import Button from '@/components/UI/Button'
 import { Fonts, Sizes, theme } from '@/constants/Theme';
-import { MultiTextField } from '@/components/UI/Input/TextField';
+import { TextField } from '@/components/UI/Input/TextField';
 import pageStyle from '@/constants/Styles';
 
 interface props {
-  user: IUser;
+  data: IEducation;
   visible: boolean;
   onClose: () => void;
   handleSuccess: () => void
 }
 
-const AboutModal = ({user, visible, onClose, handleSuccess}: props) => {
+const EditEducationModal = ({data, visible, onClose, handleSuccess}: props) => {
   const { theme } = useTheme()
   const { t } = useTranslation();
   const toast = useToast();
   const router = useRouter()
 
+
   const mutation = useMutation({
     mutationFn: async (values:any) => {
-      return await updateStaff(values);
+      return await updateExperience(data.id, values);
     },
     onMutate: (variables) => {
       // Optionally, you can handle any state updates or optimistic updates here.
@@ -50,7 +51,6 @@ const AboutModal = ({user, visible, onClose, handleSuccess}: props) => {
       });
     },
   });
-  
 
 
   return (
@@ -75,48 +75,23 @@ const AboutModal = ({user, visible, onClose, handleSuccess}: props) => {
           >
             <Formik
               initialValues={{
-                ...user,
-                about: user?.about
+                ...data,
+                institution: data?.institution || "",
+                description: data?.name || "",
+                startDate: data?.startDate,
+                endDate: data?.endDate || "",
               }}
-              onSubmit={(values: IUser) => {
+              onSubmit={(values: IEducation) => {
                 mutation.mutate(values);
               }}
             >
               {({ handleChange, handleBlur, handleSubmit, values, errors, setFieldValue }) => (
                 <>
-                  <View
-                    style={{
-                      width: "100%",
-                      flexDirection: "column",
-                      gap: theme.spacing.xl,
-                      marginTop: theme.spacing.xl,
-                    }}
-                  >
-                    {/* About */}                
-                    <View
-                      style={{
-                        flex: 1,
-                      }}
-                    >
-                      <Text 
-                        style={{
-                          ...styles.inputLabel,
-                          color: theme.colors.grey0
-                        }}
-                      >
-                        {t("about")}
-                      </Text>
-                      <MultiTextField
-                        placeholder={t("about")}
-                        onChangeText={handleChange("about")}
-                        onBlur={handleBlur("about")}
-                        value={values.about as string}
-                        name={"about"}
-                        type={"text"}
-                      />
-                    </View>
-                  </View>
-              
+
+                  {/* 🚧 Add Edit form here */}
+                  
+                  <Text>{data.name}</Text>
+                            
                   <View
                     style={{
                       ...styles.buttonGroup
@@ -127,7 +102,9 @@ const AboutModal = ({user, visible, onClose, handleSuccess}: props) => {
                       onPress={onClose}
                       size='md'
                       type='clear'
-                      titleStyle={{ ...pageStyle.button16 }}
+                      titleStyle={{ 
+                        fontSize: 16, 
+                      }}
                       radius={"sm"}
                       containerStyle={{
                         ...styles.buttonContainer,
@@ -142,7 +119,7 @@ const AboutModal = ({user, visible, onClose, handleSuccess}: props) => {
                       onPress={() => handleSubmit()}
                       size='md'
                       color='primary'
-                      titleStyle={{ ...pageStyle.button16 }}
+                      titleStyle={{ fontSize: 16 }}
                       radius={"sm"}
                       containerStyle={{
                         ...styles.buttonContainer,
@@ -155,6 +132,21 @@ const AboutModal = ({user, visible, onClose, handleSuccess}: props) => {
                 </>
               )}
             </Formik>
+
+            <Button
+              title={`${t("delete")}`}
+              onPress={() => {}}
+              size='md'
+              color='error'
+              titleStyle={{ fontSize: 16 }}
+              radius={"sm"}
+              containerStyle={{
+                ...styles.buttonContainer,
+                borderColor: theme.colors.error,                     
+                borderWidth: 2,
+                borderRadius:10
+              }}
+            />
           </ScrollView>
         </View>
       </SafeAreaView>
@@ -162,14 +154,13 @@ const AboutModal = ({user, visible, onClose, handleSuccess}: props) => {
   )
 }
 
-export default AboutModal
+export default EditEducationModal
 
 const styles = StyleSheet.create({
   formContiner: {
     width: "100%",
   },
   inputLabel: {
-    fontFamily: "Coolvetica",
     marginBottom: theme.spacing?.xs,
     fontWeight: "bold",
     paddingHorizontal: theme.spacing?.xs,
@@ -177,7 +168,7 @@ const styles = StyleSheet.create({
   buttonGroup:{
     flexDirection: 'row',
     gap: theme.spacing?.md,
-    width: '100%',
+    width: '100%',   
     marginVertical: theme.spacing?.lg,
   },
   buttonContainer: {
@@ -185,5 +176,4 @@ const styles = StyleSheet.create({
     height: "100%",
     paddingHorizontal: 0,
   },
-
 })

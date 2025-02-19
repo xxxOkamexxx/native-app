@@ -11,6 +11,7 @@
   "send": "Send",
   "save": "Save",
   "cancel": "Cancel",
+  "delete": "Delete",
 
   "first-name": "First name",
   "last-name": "Last name",
@@ -52,16 +53,18 @@
   "start-button-text": "Get Started",
   "success-update-message": "Successfully updated!",
   "failed-update-message":"Update failed.",
+  "no-activity-message": "There are no postings yet.",
 
   "information": "Information",
   "activity": "Activity",
-  "experiences": "Experiences",
-  "educations": "Educations",  
+  "experience": "Experience",
+  "education": "Education",  
   "create-post": "Create post",
 
   "read-more": "Read more...",
   "see-more": "See more",
   "see-all-posts": "See all posts",
+  "add": "Add",
 
   "search": "Search",
   "log-out": "Log out"

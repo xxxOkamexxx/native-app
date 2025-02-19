@@ -68,7 +68,7 @@ export const deleteExperience = async (id: number) => {
 // Get Staff Education
 export const getEducation = async () => {
   try {
-    const data = await api.get("/Staff/GetStaff-Education");
+    const { data } = await api.get("/Staff/GetStaff-Education");
 
     return data;
     

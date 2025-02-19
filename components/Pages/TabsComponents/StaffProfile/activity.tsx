@@ -6,6 +6,7 @@ import { Divider, Image, useTheme } from '@rneui/themed';
 import { useTranslation } from 'react-i18next';
 import { useRouter } from 'expo-router';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import pageStyle from '@/constants/Styles';
 
 interface props {
   post: IPost[];
@@ -23,6 +24,27 @@ const Activity = ({post}: props) => {
         ...styles.postsContainer
       }}
     >
+
+      { post.length === 0 && (
+        <View
+          style={{
+            flexDirection:'column',
+            justifyContent:'center',
+            alignItems:'center',
+          }}
+        >
+          <Text
+            style={{
+              ...pageStyle.headline01,
+              color:theme.colors.primary,
+            }}
+          >
+            {t("no-activity-message")}
+          </Text>
+        </View>
+
+      )}
+      
       { post?.length !== 0 && post
         .sort((a, b) => (
           new Date (b.createdAt).getTime() - new Date(a.createdAt).getTime())

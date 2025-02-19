@@ -26,6 +26,7 @@ const RootLayout = () => {
 
   // 🚧 Add Staffin font 'Coolvetica' 🚧
   const [loaded, error] = useFonts({
+    Coolvetica: require("@/assets/fonts/CoolveticaRg.ttf"),
     Poppins: require("@/assets/fonts/Poppins-Regular.ttf"),
     PoppinsBold: require("@/assets/fonts/Poppins-Bold.ttf"),
     PoppinsMedium: require("@/assets/fonts/Poppins-Medium.ttf"),

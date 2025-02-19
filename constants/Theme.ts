@@ -202,7 +202,7 @@ export const theme = createTheme({
 
 export const Fonts = {
   whiteColor14Medium: {
-    fontSize: 14.0,
+    fontSize: 14,
     fontFamily: "PoppinsMedium",
   },
 
@@ -212,34 +212,33 @@ export const Fonts = {
   },
 
   whiteColor16Regular: {
-    fontSize: 16.0,
+    fontSize: 16,
     fontFamily: "Poppins",
   },
 
   whiteColor16Bold: {
-    fontSize: 16.0,
+    fontSize: 16,
     fontFamily: "PoppinsBold",
   },
 
   whiteColor20Medium: {
-    fontSize: 20.0,
+    fontSize: 20,
     fontFamily: "PoppinsMedium",
   },
   
   whiteColor20Bold: {
-    fontSize: 20.0,
+    fontSize: 20,
     fontFamily: "PoppinsBold",
   },
 
   primaryColor14Medium: {
-    fontSize: 14.0,
+    fontSize: 14,
     fontFamily: "PoppinsMedium",
   },
 
   primaryColor14Bold: {
-    fontSize: 14.0,
+    fontSize: 14,
     fontFamily: "PoppinsBold",
-    color: theme.mode === 'light' 
   },
 
   primaryColor16Regular: {
@@ -253,47 +252,57 @@ export const Fonts = {
   },
 
   primaryColor16Bold: {
-    fontSize: 16.0,
+    fontSize: 16.,
     fontFamily: "PoppinsBold",
   },
 
   primaryColor20Medium: {
-    fontSize: 20.0,
+    fontSize: 20,
     fontFamily: "PoppinsMedium",
   },
   
   primaryColor20Bold: {
-    fontSize: 20.0,
+    fontSize: 20,
     fontFamily: "PoppinsBold",
   },
 
   grayColor14Regular: {
-    fontSize: 14.0,
+    fontSize: 14,
     fontFamily: "Poppins",
   },
 
   grayColor14Medium: {
-    fontSize: 14.0,
+    fontSize: 14,
+    fontFamily: "PoppinsMedium",
+  },
+
+  grayColor16Medium: {
+    fontSize: 16,
+    fontFamily: "PoppinsMedium",
+  },
+
+  grayColor20Medium: {
+    fontSize: 20,
     fontFamily: "PoppinsMedium",
   },
 
   grayColor14Bold: {
-    fontSize: 14.0,
+    fontSize: 14,
     fontFamily: "PoppinsBold",
   },
 
   grayColor16Regular: {
-    fontSize: 16.0,
+    fontSize: 16,
     fontFamily: "Poppins",
   },
 
   grayColor16Bold: {
-    fontSize: 16.0,
+    fontSize: 16,
     fontFamily: "PoppinsBold",
   },
 
   grayColor20Bold: {
-    fontSize: 20.0,
+    fontSize: 20,
     fontFamily: "PoppinsBold",
   },
 

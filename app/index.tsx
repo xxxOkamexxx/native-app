@@ -8,6 +8,8 @@ import Button from '@/components/UI/Button';
 import { colors, commonStyles, Fonts, screenHeight, Sizes, theme } from '@/constants/Theme';
 import {MaterialCommunityIcons } from "@expo/vector-icons";
 import { useRouter } from 'expo-router';
+import pageStyle from '@/constants/Styles';
+import { color } from '@rneui/themed/dist/config';
 
 const App = () => {
   const { theme } = useTheme()
@@ -59,20 +61,35 @@ const App = () => {
             gap: theme.spacing.md,
           }}
         >
-          <Text style={{...Fonts.grayColor20Bold}}>{`${t("start-message")}`}</Text>
-          <Text style={{...Fonts.grayColor16Regular}}>{`${t("start-sub-text")}`}</Text>
+          <Text 
+            style={{
+              ...pageStyle.headline01, 
+              color: theme.colors.grey0,
+            }}
+          >
+            {`${t("start-message")}`}
+          </Text>
+
+          <Text 
+            style={{
+              ...Fonts.grayColor16Regular,
+              color: theme.colors.grey0,
+            }}
+          >
+            {`${t("start-sub-text")}`}
+          </Text>
         </View>
 
         <Button
           containerStyle={{width:'100%'}}
           buttonStyle={[commonStyles.buttonStyle, styles.buttonStyle]}
           title={`${t("start-button-text")}`}
-          titleStyle={[Fonts.whiteColor20Medium,]}
+          titleStyle={{...Fonts.whiteColor20Medium, color: theme.colors.white}}
           iconPosition='right'
           icon={
             <MaterialCommunityIcons 
               name='arrow-right' 
-              color={colors.white} 
+              color={theme.colors.white} 
               size={24}
               style={{paddingLeft:24}}
             />

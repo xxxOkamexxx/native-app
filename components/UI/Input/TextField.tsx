@@ -5,6 +5,7 @@ import { useTheme } from "@rneui/themed";
 import { Sizes, theme } from "@/constants/Theme"
 import { Text } from "@rneui/base";
 import { commonStyles, Fonts } from "@/constants/Theme";
+import pageStyle from "@/constants/Styles";
 
 interface Props {
   name?: string;
@@ -33,7 +34,7 @@ export const TextField: React.FC<Props> = (props) => {
         style={{
           ...styles.input,
           ...props.styles,
-          ...Fonts.primaryColor14Medium,
+          ...Fonts.grayColor14Regular,
           borderColor: theme.colors.divider,
           backgroundColor: theme.colors.secondary,
           width: "100%",

@@ -20,6 +20,8 @@ import Animated, {
   FadeInUp,
 } from "react-native-reanimated";
 import { useAuth } from '@/contexts/authContext';
+import PageTemplate from './pageTemplate';
+import pageStyle from '@/constants/Styles';
 
 
 const StaffSignUpSchema = Yup.object().shape({
@@ -49,380 +51,364 @@ const SignUpPage = () => {
 
   // console.log("isLoading:", isLoading);
   useEffect(() => {
-    console.log('role:', role);
+    //console.log('role:', role);
     
   },[role])
 
   return (
-    <View style={{ flex: 1,}}>
-      <ScrollView
-        automaticallyAdjustKeyboardInsets={true}
-        showsVerticalScrollIndicator={false}
-      >
-        <Animated.View
-          entering={FadeInUp.delay(200).duration(1000).springify()}
-          style={{ alignItems: "center", margin: Sizes.fixPadding * 2.0 }}
-        >
-
-          <Text 
-          style={{...Fonts.grayColor16Bold}}
-          >
-            {`${t("sign-up")}`}
-          </Text>
-
-        </Animated.View> 
-
-        <Animated.View
-          entering={FadeInDown.delay(400)
-            .duration(1000)
-            .springify()}
-          style={{
-            flexDirection:'row',
-            alignItems:'center'
-          }}
-        >
-          <CheckBox 
-            checked={checked}
-            onPress={() => {
-              setChecked(prev => {
-                const newChecked = !prev;
-                setRole(newChecked ? 'admin' : 'staff')
-                return newChecked;
-              })
-            }}
-          />
-          <Text
-            style={{ ...styles.inputLabel }}
-          >
-            {`${t("role-checkbox-text")}`}
-          </Text>
-        </Animated.View>
-
-        <View style={styles.formContiner}>
-          { role === 'staff' && (
-            <Formik
-              initialValues={{
-                email: "",
-                password: "",
-                userName: "",
-              }}
-              validationSchema={StaffSignUpSchema}
-              onSubmit={async (values) => {
-                console.log("Submitting SignUp with:", values, role); // Submitting SignUp with: {"companyName": "", "email": "new@mail.com", "organisationNumber": "", "password": "string", "userName": "new"} staff
-                await SignUp(role, values);
-              }}
-            >
-              {({
-                handleChange,
-                handleBlur,
-                handleSubmit,
-                values,
-                errors,
-                setFieldValue,
-              }) => (
-                <>
-                  <View
-                    style={{
-                      width: "100%",
-                      flexDirection: "column",
-                      gap: theme.spacing.xl,
-                    }}
-                  >
-                  
-                    {/* User name */}
-                    <Animated.View
-                      entering={FadeInDown.delay(400)
-                        .duration(1000)
-                        .springify()}
-                      style={{
-                        width: "100%",
-                      }}
-                    >
-                      <Text style={styles.inputLabel}>
-                        {t("user-name")}
-                      </Text>
-                      <TextField
-                        placeholder={t("user-name")}
-                        onChangeText={handleChange("userName")}
-                        onBlur={handleBlur("userName")}
-                        value={values.userName}
-                        name={"userName"}
-                        type={"text"}
-                        errorMessage={errors.userName}
-                        keyboardType='default'
-                      />
-                    </Animated.View>         
-
-                    {/* Email */}
-                    <Animated.View
-                      entering={FadeInDown.delay(400)
-                        .duration(1000)
-                        .springify()}
-                      style={{
-                        width: "100%",
-                      }}
-                    >
-                      <Text style={styles.inputLabel}>
-                        {t("e-mail")}
-                      </Text>
-                      <TextField
-                        placeholder={t("e-mail")}
-                        onChangeText={handleChange("email")}
-                        onBlur={handleBlur("email")}
-                        value={values.email}
-                        name={"email"}
-                        type={"email"}
-                        errorMessage={errors.email}
-                        keyboardType='email-address'
-                      />
-                    </Animated.View>
-
-                    {/* Password */}
-                    <Animated.View
-                      entering={FadeInDown.delay(400)
-                        .duration(1000)
-                        .springify()}
-                      style={{
-                        width: "100%",
-                      }}
-                    >
-                      <Text style={styles.inputLabel}>
-                        {t("password")}
-                      </Text>
-                      <TextField
-                        placeholder={t("password")}
-                        onChangeText={handleChange("password")}
-                        onBlur={handleBlur("password")}
-                        value={values.password}
-                        name={"password"}
-                        type={"password"}
-                        secureTextEntry={showPassword}
-                        errorMessage={errors.password}
-                      />
-                    </Animated.View>
-
-
-                    {/* Submit Button */}
-                    <Animated.View
-                      entering={FadeInDown.delay(600)
-                        .duration(1000)
-                        .springify()
-                      }
-                      style={{ width:'100%'}}
-                    >
-                      <Button 
-                        title={`${t("sign-up")}`}
-                        onPress={() => {
-                          console.log("🚀 SignUp Button Pressed!")
-                          handleSubmit()
-                        }}
-                        loading={isLoading}
-                        disabled={isLoading}                      
-                        size="md"
-                        color="primary"
-                        titleStyle={{ fontSize: 16 }}
-                        radius={"sm"}
-                      />  
-                    </Animated.View>
-                  </View>                            
-                </>
-              )}
-            </Formik> 
-          )}
-
-          { role === 'admin' && (
-            <Formik
-              initialValues={{
-                email: "",
-                password: "",
-                companyName: "",
-                organisationNumber: "",
-              }}
-              validationSchema={AdminSignUpSchema}
-              onSubmit={async (values) => {
-                console.log("Submitting SignUp with:", values, role);
-                await SignUp(role, values);
-              }}
-            >
-              {({
-                handleChange,
-                handleBlur,
-                handleSubmit,
-                values,
-                errors,
-                setFieldValue,
-              }) => (
-                <>
-                  <View
-                    style={{
-                      width: "100%",
-                      flexDirection: "column",
-                      gap: theme.spacing.xl,
-                    }}
-                  >
-
-                    {/* Company name */}
-                    <Animated.View
-                      entering={FadeInDown.delay(400)
-                        .duration(1000)
-                        .springify()}
-                      style={{
-                        width: "100%",
-                      }}
-                    >
-                      <Text style={styles.inputLabel}>
-                        {t("company-name")}
-                      </Text>
-                      <TextField
-                        placeholder={t("company-name")}
-                        onChangeText={handleChange("companyName")}
-                        onBlur={handleBlur("companyName")}
-                        value={values.companyName}
-                        name={"companyName"}
-                        type={"text"}
-                        errorMessage={errors.companyName}
-                        keyboardType='default'
-                      />
-                    </Animated.View>
-
-                    {/* Organisation no. */}
-                    <Animated.View
-                      entering={FadeInDown.delay(400)
-                        .duration(1000)
-                        .springify()}
-                      style={{
-                        width: "100%",
-                      }}
-                    >
-                      <Text style={styles.inputLabel}>
-                        {t("organisation-number")}
-                      </Text>
-                      <TextField
-                        placeholder={t("organisation-number")}
-                        onChangeText={handleChange("organisationNumber")}
-                        onBlur={handleBlur("organisationNumber")}
-                        value={values.organisationNumber}
-                        name={"organisationNumber"}
-                        type={"text"}
-                        errorMessage={errors.organisationNumber}
-                        keyboardType='default'
-                      />
-                    </Animated.View>          
-
-                    {/* Email */}
-                    <Animated.View
-                      entering={FadeInDown.delay(400)
-                        .duration(1000)
-                        .springify()}
-                      style={{
-                        width: "100%",
-                      }}
-                    >
-                      <Text style={styles.inputLabel}>
-                        {t("e-mail")}
-                      </Text>
-                      <TextField
-                        placeholder={t("e-mail")}
-                        onChangeText={handleChange("email")}
-                        onBlur={handleBlur("email")}
-                        value={values.email}
-                        name={"email"}
-                        type={"email"}
-                        errorMessage={errors.email}
-                        keyboardType='email-address'
-                      />
-                    </Animated.View>
-
-                    {/* Password */}
-                    <Animated.View
-                      entering={FadeInDown.delay(400)
-                        .duration(1000)
-                        .springify()}
-                      style={{
-                        width: "100%",
-                      }}
-                    >
-                      <Text style={styles.inputLabel}>
-                        {t("password")}
-                      </Text>
-                      <TextField
-                        placeholder={t("password")}
-                        onChangeText={handleChange("password")}
-                        onBlur={handleBlur("password")}
-                        value={values.password}
-                        name={"password"}
-                        type={"password"}
-                        secureTextEntry={true}
-                        errorMessage={errors.password}
-                      />
-                    </Animated.View>
-
-
-                    {/* Submit Button */}
-                    <Animated.View
-                      entering={FadeInDown.delay(600)
-                        .duration(1000)
-                        .springify()
-                      }
-                      style={{ width:'100%'}}
-                    >
-                      <Button 
-                        title={`${t("sign-up")}`}
-                        onPress={() => {
-                          console.log("🚀 SignUp Button Pressed!")
-                          handleSubmit()
-                        }}
-                        loading={isLoading}
-                        disabled={isLoading}                      
-                        size="md"
-                        color="primary"
-                        titleStyle={{ fontSize: 16 }}
-                        radius={"sm"}
-                      />  
-                    </Animated.View>
-                  </View>                            
-                </>
-              )}
-            </Formik>  
-          )}
-                      
-          <Animated.View
+    <PageTemplate 
+      title={`${t("sign-up")}`}
+      children={(
+        <>
+            <Animated.View
             entering={FadeInDown.delay(400)
               .duration(1000)
               .springify()}
             style={{
-              width: "100%",
               flexDirection:'row',
-              gap:theme.spacing.md,
-              marginTop: theme.spacing.md
+              alignItems:'center'
             }}
           >
-            <Text
-              style={{
-                ...Fonts.grayColor16Regular,
+            <CheckBox 
+              checked={checked}
+              onPress={() => {
+                setChecked(prev => {
+                  const newChecked = !prev;
+                  setRole(newChecked ? 'admin' : 'staff')
+                  return newChecked;
+                })
               }}
+            />
+            <Text
+              style={{ ...styles.inputLabel }}
             >
-              {`${t("having-an-account-message")}`}
+              {`${t("role-checkbox-text")}`}
             </Text>
+          </Animated.View>
 
-            <Link
-              href={"./signin"}
+          <View style={styles.formContiner}>
+            { role === 'staff' && (
+              <Formik
+                initialValues={{
+                  email: "",
+                  password: "",
+                  userName: "",
+                }}
+                validationSchema={StaffSignUpSchema}
+                onSubmit={async (values) => {
+                  console.log("Submitting SignUp with:", values, role); // Submitting SignUp with: {"companyName": "", "email": "new@mail.com", "organisationNumber": "", "password": "string", "userName": "new"} staff
+                  await SignUp(role, values);
+                }}
+              >
+                {({
+                  handleChange,
+                  handleBlur,
+                  handleSubmit,
+                  values,
+                  errors,
+                  setFieldValue,
+                }) => (
+                  <>
+                    <View
+                      style={{
+                        width: "100%",
+                        flexDirection: "column",
+                        gap: theme.spacing.xl,
+                      }}
+                    >
+                    
+                      {/* User name */}
+                      <Animated.View
+                        entering={FadeInDown.delay(400)
+                          .duration(1000)
+                          .springify()}
+                        style={{
+                          width: "100%",
+                        }}
+                      >
+                        <Text style={styles.inputLabel}>
+                          {t("user-name")}
+                        </Text>
+                        <TextField
+                          placeholder={t("user-name")}
+                          onChangeText={handleChange("userName")}
+                          onBlur={handleBlur("userName")}
+                          value={values.userName}
+                          name={"userName"}
+                          type={"text"}
+                          errorMessage={errors.userName}
+                          keyboardType='default'
+                        />
+                      </Animated.View>         
+
+                      {/* Email */}
+                      <Animated.View
+                        entering={FadeInDown.delay(400)
+                          .duration(1000)
+                          .springify()}
+                        style={{
+                          width: "100%",
+                        }}
+                      >
+                        <Text style={styles.inputLabel}>
+                          {t("e-mail")}
+                        </Text>
+                        <TextField
+                          placeholder={t("e-mail")}
+                          onChangeText={handleChange("email")}
+                          onBlur={handleBlur("email")}
+                          value={values.email}
+                          name={"email"}
+                          type={"email"}
+                          errorMessage={errors.email}
+                          keyboardType='email-address'
+                        />
+                      </Animated.View>
+
+                      {/* Password */}
+                      <Animated.View
+                        entering={FadeInDown.delay(400)
+                          .duration(1000)
+                          .springify()}
+                        style={{
+                          width: "100%",
+                        }}
+                      >
+                        <Text style={styles.inputLabel}>
+                          {t("password")}
+                        </Text>
+                        <TextField
+                          placeholder={t("password")}
+                          onChangeText={handleChange("password")}
+                          onBlur={handleBlur("password")}
+                          value={values.password}
+                          name={"password"}
+                          type={"password"}
+                          secureTextEntry={showPassword}
+                          errorMessage={errors.password}
+                        />
+                      </Animated.View>
+
+
+                      {/* Submit Button */}
+                      <Animated.View
+                        entering={FadeInDown.delay(600)
+                          .duration(1000)
+                          .springify()
+                        }
+                        style={{ width:'100%'}}
+                      >
+                        <Button 
+                          title={`${t("sign-up")}`}
+                          onPress={() => {
+                            console.log("🚀 SignUp Button Pressed!")
+                            handleSubmit()
+                          }}
+                          loading={isLoading}
+                          disabled={isLoading}                      
+                          size="md"
+                          color="primary"
+                          titleStyle={{ fontSize: 16 }}
+                          radius={"sm"}
+                        />  
+                      </Animated.View>
+                    </View>                            
+                  </>
+                )}
+              </Formik> 
+            )}
+
+            { role === 'admin' && (
+              <Formik
+                initialValues={{
+                  email: "",
+                  password: "",
+                  companyName: "",
+                  organisationNumber: "",
+                }}
+                validationSchema={AdminSignUpSchema}
+                onSubmit={async (values) => {
+                  console.log("Submitting SignUp with:", values, role);
+                  await SignUp(role, values);
+                }}
+              >
+                {({
+                  handleChange,
+                  handleBlur,
+                  handleSubmit,
+                  values,
+                  errors,
+                  setFieldValue,
+                }) => (
+                  <>
+                    <View
+                      style={{
+                        width: "100%",
+                        flexDirection: "column",
+                        gap: theme.spacing.xl,
+                      }}
+                    >
+
+                      {/* Company name */}
+                      <Animated.View
+                        entering={FadeInDown.delay(400)
+                          .duration(1000)
+                          .springify()}
+                        style={{
+                          width: "100%",
+                        }}
+                      >
+                        <Text style={styles.inputLabel}>
+                          {t("company-name")}
+                        </Text>
+                        <TextField
+                          placeholder={t("company-name")}
+                          onChangeText={handleChange("companyName")}
+                          onBlur={handleBlur("companyName")}
+                          value={values.companyName}
+                          name={"companyName"}
+                          type={"text"}
+                          errorMessage={errors.companyName}
+                          keyboardType='default'
+                        />
+                      </Animated.View>
+
+                      {/* Organisation no. */}
+                      <Animated.View
+                        entering={FadeInDown.delay(400)
+                          .duration(1000)
+                          .springify()}
+                        style={{
+                          width: "100%",
+                        }}
+                      >
+                        <Text style={styles.inputLabel}>
+                          {t("organisation-number")}
+                        </Text>
+                        <TextField
+                          placeholder={t("organisation-number")}
+                          onChangeText={handleChange("organisationNumber")}
+                          onBlur={handleBlur("organisationNumber")}
+                          value={values.organisationNumber}
+                          name={"organisationNumber"}
+                          type={"text"}
+                          errorMessage={errors.organisationNumber}
+                          keyboardType='default'
+                        />
+                      </Animated.View>          
+
+                      {/* Email */}
+                      <Animated.View
+                        entering={FadeInDown.delay(400)
+                          .duration(1000)
+                          .springify()}
+                        style={{
+                          width: "100%",
+                        }}
+                      >
+                        <Text style={styles.inputLabel}>
+                          {t("e-mail")}
+                        </Text>
+                        <TextField
+                          placeholder={t("e-mail")}
+                          onChangeText={handleChange("email")}
+                          onBlur={handleBlur("email")}
+                          value={values.email}
+                          name={"email"}
+                          type={"email"}
+                          errorMessage={errors.email}
+                          keyboardType='email-address'
+                        />
+                      </Animated.View>
+
+                      {/* Password */}
+                      <Animated.View
+                        entering={FadeInDown.delay(400)
+                          .duration(1000)
+                          .springify()}
+                        style={{
+                          width: "100%",
+                        }}
+                      >
+                        <Text style={styles.inputLabel}>
+                          {t("password")}
+                        </Text>
+                        <TextField
+                          placeholder={t("password")}
+                          onChangeText={handleChange("password")}
+                          onBlur={handleBlur("password")}
+                          value={values.password}
+                          name={"password"}
+                          type={"password"}
+                          secureTextEntry={true}
+                          errorMessage={errors.password}
+                        />
+                      </Animated.View>
+
+
+                      {/* Submit Button */}
+                      <Animated.View
+                        entering={FadeInDown.delay(600)
+                          .duration(1000)
+                          .springify()
+                        }
+                        style={{ width:'100%'}}
+                      >
+                        <Button 
+                          title={`${t("sign-up")}`}
+                          onPress={handleSubmit}
+                          loading={isLoading}
+                          disabled={isLoading}                      
+                          size="md"
+                          color="primary"
+                          titleStyle={{ ...pageStyle.button20, color: theme.colors.white, }}
+                          radius={"sm"}
+                        />  
+                      </Animated.View>
+                    </View>                            
+                  </>
+                )}
+              </Formik>  
+            )}
+                        
+            <Animated.View
+              entering={FadeInDown.delay(400)
+                .duration(1000)
+                .springify()}
+              style={{
+                width: "100%",
+                flexDirection:'row',
+                gap:theme.spacing.md,
+                marginTop: theme.spacing.md
+              }}
             >
               <Text
                 style={{
-                  ...Fonts.primaryColor16Medium, 
-                  color:theme.colors.primary,
-                  textDecorationLine: "underline",
-                  textDecorationColor: theme.colors.primary,
+                  ...Fonts.grayColor16Regular,
                 }}
               >
-                {`${t("sign-in")}`}
+                {`${t("having-an-account-message")}`}
               </Text>
-            </Link>
-          </Animated.View>          
-        </View>        
-      </ScrollView>
-    </View>
+
+              <Link
+                href={"./signin"}
+              >
+                <Text
+                  style={{
+                    ...Fonts.primaryColor16Medium, 
+                    color:theme.colors.primary,
+                    textDecorationLine: "underline",
+                    textDecorationColor: theme.colors.primary,
+                  }}
+                >
+                  {`${t("sign-in")}`}
+                </Text>
+              </Link>
+            </Animated.View>          
+          </View>   
+        </>
+      )}
+    />
   )
 }
 
@@ -433,6 +419,7 @@ const styles = StyleSheet.create({
     width: "100%",
   },
   inputLabel: {
+    fontFamily: "Coolvetica",
     marginBottom: theme.spacing?.xs,
     fontWeight: "bold",
     paddingHorizontal: theme.spacing?.xs,

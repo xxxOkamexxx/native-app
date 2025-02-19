@@ -7,7 +7,7 @@ import { Formik } from 'formik';
 
 import { getExperience, updateExperience, updateStaff } from '@/api/backend';
 
-import { IUser } from '@/types/UserTypes';
+import { IExperience, IUser } from '@/types/UserTypes';
 
 import { useTheme } from '@rneui/themed';
 import { useTranslation } from 'react-i18next';
@@ -17,30 +17,22 @@ import { TextField } from '@/components/UI/Input/TextField';
 import pageStyle from '@/constants/Styles';
 
 interface props {
-  user: IUser;
+  data: IExperience;
   visible: boolean;
   onClose: () => void;
   handleSuccess: () => void
 }
 
-const EditExperienceModal = ({user, visible, onClose, handleSuccess}: props) => {
+const EditExperienceModal = ({data, visible, onClose, handleSuccess}: props) => {
   const { theme } = useTheme()
   const { t } = useTranslation();
   const toast = useToast();
   const router = useRouter()
 
-  const { data: expData } = useQuery({
-    queryKey: ["exp-data"],
-    queryFn: async () => {
-      const response = await getExperience()      
-  
-      return response;
-    },
-  })
 
   const mutation = useMutation({
     mutationFn: async (values:any) => {
-      return await updateExperience(user.id, values);
+      return await updateExperience(data.id, values);
     },
     onMutate: (variables) => {
       // Optionally, you can handle any state updates or optimistic updates here.
@@ -83,23 +75,22 @@ const EditExperienceModal = ({user, visible, onClose, handleSuccess}: props) => 
           >
             <Formik
               initialValues={{
-                ...expData,
-                position: expData?.position,
-                description: expData?.description || "",
-                companyName: expData?.companyName,
-                location: expData?.location || "",
-                startDate: expData?.startDate,
-                endDate: expData?.endDate || "",
+                ...data,
+                position: data?.position || "",
+                description: data?.description || "",
+                companyName: data?.companyName,
+                location: data?.location || "",
+                startDate: data?.startDate,
+                endDate: data?.endDate || "",
               }}
-              onSubmit={(values: IUser) => {
+              onSubmit={(values: IExperience) => {
                 mutation.mutate(values);
               }}
             >
               {({ handleChange, handleBlur, handleSubmit, values, errors, setFieldValue }) => (
                 <>
-                  
-
-              
+                  {/* 🚧 Add Edit form here */}
+                            
                   <View
                     style={{
                       ...styles.buttonGroup
@@ -109,7 +100,7 @@ const EditExperienceModal = ({user, visible, onClose, handleSuccess}: props) => 
                       title={`${t("cancel")}`}
                       onPress={onClose}
                       size='md'
-                      type='outline'
+                      type='clear'
                       titleStyle={{ 
                         fontSize: 16, 
                       }}
@@ -117,6 +108,7 @@ const EditExperienceModal = ({user, visible, onClose, handleSuccess}: props) => 
                       containerStyle={{
                         ...styles.buttonContainer,
                         borderColor: theme.colors.primary,
+                        borderWidth: 2,
                       }}
                     />
                       
@@ -129,13 +121,32 @@ const EditExperienceModal = ({user, visible, onClose, handleSuccess}: props) => 
                       titleStyle={{ fontSize: 16 }}
                       radius={"sm"}
                       containerStyle={{
-                        ...styles.buttonContainer
+                        ...styles.buttonContainer,
+                        borderColor: theme.colors.primary,                     
+                        borderWidth: 2,
+                        borderRadius:10
                       }}
                     />
                   </View>
-                  </>
+                </>
               )}
             </Formik>
+
+            
+            <Button
+              title={`${t("delete")}`}
+              onPress={() => {}}
+              size='md'
+              color='error'
+              titleStyle={{ fontSize: 16 }}
+              radius={"sm"}
+              containerStyle={{
+                ...styles.buttonContainer,
+                borderColor: theme.colors.error,                     
+                borderWidth: 2,
+                borderRadius:10
+              }}
+            />
           </ScrollView>
         </View>
       </SafeAreaView>
@@ -158,7 +169,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     gap: theme.spacing?.md,
     width: '100%',
-    marginTop: theme.spacing?.lg,
+    marginVertical: theme.spacing?.lg,
   },
   buttonContainer: {
     flex: 1,

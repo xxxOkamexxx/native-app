@@ -2,11 +2,9 @@ import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 import React, { useState } from 'react'
 import { useRouter } from 'expo-router';
 import *as ImagePicker from 'expo-image-picker'
-import { useMutation } from '@tanstack/react-query';
 import { useToast } from "react-native-toast-notifications";
-import { Formik, useFormik } from 'formik';
 
-import { IUser } from '@/types/UserTypes'
+import { IExperience, IUser } from '@/types/UserTypes'
 import { IPost } from '@/types/PostTypes'
 import { Avatar, Divider, useTheme } from '@rneui/themed';
 import { useTranslation } from 'react-i18next';
@@ -23,6 +21,10 @@ import InfoModal from './Edit/infoModal';
 import AboutModal from './Edit/aboutModal';
 import { updateStaff } from '@/api/backend';
 import { getBase64FromUri } from '@/utils/getBase64';
+import AllEducation from './allEducation';
+import pageStyle from '@/constants/Styles';
+import AllExperience from './allExperience';
+import AllActivity from './allActivity';
 
 interface props {
   user: IUser;
@@ -47,15 +49,22 @@ const PerofileIndex = ({user, showEditButton, post, refetch}: props) => {
   const toast = useToast();
   const router = useRouter()
 
+  const [expData, setExpData] = useState<IExperience>()
+
   const [openEditInfoDialog, setOpenEditInfoDialog] = useState<boolean>(false)
   const [openEditAboutDialog, setOpenEditAboutDialog] = useState<boolean>(false)
+  
   const [openAddActivityDialog, setOpenAddActivityDialog] = useState<boolean>(false)
-  const [openEditExperiensDialog, setOpenEditExperiensDialog] = useState<boolean>(false)
-  const [openAddExperiensDialog, setOpenAddExperiensDialog] = useState<boolean>(false)
-  const [openEditEducationDialog, setOpenEditEducationDialog] = useState<boolean>(false)
+  const [openAllActivityDialog, setOpenAllActivityDialog] = useState<boolean>(false)
+
+  const [openAddExperienceDialog, setOpenAddExperienceDialog] = useState<boolean>(false)
+  const [openAllExperienceDialog, setOpenAllExperienceDialog] = useState<boolean>(false)
+
   const [openAddEducationDialog, setOpenAddEducationDialog] = useState<boolean>(false)
-  const [openEditSkillsDialog, setOpenEditSkillsDialog] = useState<boolean>(false)
+  const [openAllEducationDialog, setOpenAllEducationDialog] = useState<boolean>(false)
+
   const [openAddSkillsDialog, setOpenAddSkillsDialog] = useState<boolean>(false)
+
   const [openEditLanguageDialog, setOpenEditLanguageDialog] = useState<boolean>(false)
   const [openAddLanguageDialog, setOpenAddLanguageDialog] = useState<boolean>(false)
 
@@ -111,7 +120,7 @@ const PerofileIndex = ({user, showEditButton, post, refetch}: props) => {
         >
           <Text
             style={{
-              ...Fonts.grayColor16Bold,
+              ...pageStyle.headline02,
               color: theme.colors.grey0,
             }}
           >
@@ -308,7 +317,11 @@ const PerofileIndex = ({user, showEditButton, post, refetch}: props) => {
           </TouchableOpacity>
         }
         footerChildren={
-          <TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => {
+              setOpenAllActivityDialog(true)
+            }}
+          >
             <Text
               style={{
                 ...Fonts.grayColor14Medium,
@@ -322,15 +335,20 @@ const PerofileIndex = ({user, showEditButton, post, refetch}: props) => {
       />
 
       <ItemContainer
-        title={t("experiences")}
-        children={<Experience user={user} showEditButton={showEditButton} />}
+        title={t("experience")}
+        children={
+          <Experience 
+            user={user} 
+            showEditButton={showEditButton} 
+          />
+        }
         btnChildren={
           <TouchableOpacity
             style={{
               ...styles.itemEditButton,
               backgroundColor: theme.colors.background
             }}
-            onPress={() => setOpenAddExperiensDialog(true)}
+            onPress={() => setOpenAddExperienceDialog(true)}
           >
             <MaterialCommunityIcons 
               name='plus' 
@@ -344,7 +362,9 @@ const PerofileIndex = ({user, showEditButton, post, refetch}: props) => {
         }
         showFooter={true}
         footerChildren={
-          <TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => setOpenAllExperienceDialog(true)}
+          >
             <Text
               style={{
                 ...Fonts.grayColor14Medium,
@@ -358,8 +378,13 @@ const PerofileIndex = ({user, showEditButton, post, refetch}: props) => {
       />  
 
       <ItemContainer
-        title={t("educations")}
-        children={<Education user={user} showEditButton={showEditButton} />}
+        title={t("education")}
+        children={
+          <Education 
+            user={user} 
+            showEditButton={showEditButton} 
+          />
+        }
         btnChildren={
           <TouchableOpacity
             style={{
@@ -380,7 +405,9 @@ const PerofileIndex = ({user, showEditButton, post, refetch}: props) => {
         }
         showFooter={true}
         footerChildren={
-          <TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => setOpenAllEducationDialog(true)}
+          >
             <Text
               style={{
                 ...Fonts.grayColor14Medium,
@@ -539,7 +566,7 @@ const PerofileIndex = ({user, showEditButton, post, refetch}: props) => {
         visible={openEditInfoDialog}
         user={user}
         onClose={() => setOpenEditInfoDialog(!openEditInfoDialog)}
-        handleSuccess = {() => refetch()}
+        handleSuccess={() => refetch()}
       />
       <AboutModal
         visible={openEditAboutDialog}
@@ -547,7 +574,22 @@ const PerofileIndex = ({user, showEditButton, post, refetch}: props) => {
         onClose={() => setOpenEditAboutDialog(!openEditAboutDialog)}
         handleSuccess = {() => refetch()}
       />
-        
+      <AllExperience 
+        visible={openAllExperienceDialog}
+        id={user.id!}
+        onClose={() => setOpenAllExperienceDialog(!openAllExperienceDialog)}
+        handleSuccess={() => refetch()}
+      />
+      <AllEducation 
+        visible={openAllEducationDialog}
+        id={user.id}
+        onClose={() => setOpenAllEducationDialog(!openAllEducationDialog)}
+        handleSuccess={() => refetch()}
+      /> 
+      <AllActivity 
+        visible={openAllActivityDialog}
+        onClose={() => setOpenAllActivityDialog(!openAllActivityDialog)}
+      />     
     </View>
   )
 }
@@ -604,41 +646,3 @@ const styles = StyleSheet.create({
   }
 });
 
-// { showEditButton && props.showBtnContainer && 
-//   <TouchableOpacity
-//     style={{
-//       ...styles.itemEditButton,
-//       backgroundColor: theme.colors.background
-//     }}
-//     onPress={props.onPressAdd}
-//   >
-//     <MaterialCommunityIcons 
-//       name='plus' 
-//       size={24} 
-//       color={ theme.mode === 'light'
-//         ? theme.colors.grey3
-//         : theme.colors.white
-//       }
-//     />
-//   </TouchableOpacity>
-// }
-
-// { showEditButton &&
-  
-//   <TouchableOpacity
-//     style={{
-//       ...styles.itemEditButton,
-//       backgroundColor: theme.colors.background
-//     }}
-//     onPress={props.onPressEdit}
-//   >
-//     <MaterialCommunityIcons 
-//       name='pencil' 
-//       size={24} 
-//       color={ theme.mode === 'light'
-//         ? theme.colors.grey3
-//         : theme.colors.white
-//       }
-//     />
-//   </TouchableOpacity>
-// }

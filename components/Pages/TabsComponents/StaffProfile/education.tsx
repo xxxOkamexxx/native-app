@@ -1,5 +1,5 @@
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
-import React from 'react'
+import React, { useState } from 'react'
 import { useRouter } from 'expo-router';
 
 import { Fonts, theme } from '@/constants/Theme';
@@ -8,7 +8,8 @@ import { useTranslation } from 'react-i18next';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import dayjs from 'dayjs'
 
-import { IUser } from '@/types/UserTypes';
+import { IEducation, IUser } from '@/types/UserTypes';
+import EditEducationModal from './Edit/editEducationModal';
 
 
 interface props {
@@ -17,6 +18,9 @@ interface props {
 }
 
 const Education = ({user, showEditButton}: props) => {
+  const [openEditModal, setOpenEditModal] = useState(false)
+  const [eduData, setEduData] = useState<IEducation>()
+
   const { theme } = useTheme()
   const { t } = useTranslation();
   const router = useRouter()
@@ -73,25 +77,29 @@ const Education = ({user, showEditButton}: props) => {
               </View>
 
               <View>
-                <TouchableOpacity
-                  style={{
-                    ...styles.itemEditButton,
-                    backgroundColor: theme.colors.background
-                  }}
-                  onPress={() => {}} 
-                >
-                  <MaterialCommunityIcons 
-                    name='pencil' 
-                    size={24} 
-                    color={ theme.mode === 'light'
-                      ? theme.colors.grey3
-                      : theme.colors.white
-                    }
-                  />
-                </TouchableOpacity>
-
+                { showEditButton && 
+                  <TouchableOpacity
+                    style={{
+                      ...styles.itemEditButton,
+                      backgroundColor: theme.colors.background
+                    }}
+                    onPress={() => {
+                      setEduData(edu)
+                      setOpenEditModal(true)
+                    }} 
+                  >
+                    <MaterialCommunityIcons 
+                      name='pencil' 
+                      size={24} 
+                      color={ theme.mode === 'light'
+                        ? theme.colors.grey3
+                        : theme.colors.white
+                      }
+                    />
+                  </TouchableOpacity>
+                }
               </View>
-              
+
             </View> 
 
             {index < array.length - 1 && 
@@ -101,6 +109,15 @@ const Education = ({user, showEditButton}: props) => {
           </View>
         ))
       }
+      {/* Modal */}
+      <EditEducationModal
+        data={eduData!}
+        visible={openEditModal}
+        onClose={() => setOpenEditModal(!openEditModal)}
+        handleSuccess={() => {
+          // 🚧 Add function after successful data update (refetch userData)
+        }}
+      />
     </View>
   )
 }

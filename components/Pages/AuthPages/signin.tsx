@@ -20,6 +20,8 @@ import Animated, {
   FadeInRight,
   FadeInUp,
 } from "react-native-reanimated";
+import pageStyle from '@/constants/Styles';
+import PageTemplate from './pageTemplate';
 
 
 const SignInSchema = Yup.object().shape({
@@ -37,162 +39,149 @@ const SignInPage = () => {
 
 
   return (
-    <View style={{ flex: 1,}}>
-      <ScrollView
-        automaticallyAdjustKeyboardInsets={true}
-        showsVerticalScrollIndicator={false}
-      >
-        <Animated.View
-          entering={FadeInUp.delay(200).duration(1000).springify()}
-          style={{ alignItems: "center", margin: Sizes.fixPadding * 2.0 }}
-        >
-
-          <Text 
-          style={{...Fonts.grayColor16Bold}}
-          >
-            {`${t("sign-in")}`}
-          </Text>
-
-        </Animated.View> 
-
-        <View style={styles.formContiner}>
-          <Formik
-            initialValues={{
-              email: "",
-              password: "",
-            }}
-            validationSchema={SignInSchema}
-            onSubmit={async (values) => {
-              await SignIn(values);
-            }}
-          >
-            {({
-              handleChange,
-              handleBlur,
-              handleSubmit,
-              values,
-              errors,
-              setFieldValue,
-            }) => (
-              <>
-                <View
-                  style={{
-                    width: "100%",
-                    flexDirection: "column",
-                    gap: theme.spacing.xl,
-                  }}
-                >
-                  {/* Email */}
-                  <Animated.View
-                    entering={FadeInDown.delay(400)
-                      .duration(1000)
-                      .springify()}
-                    style={{
-                      width: "100%",
-                    }}
-                  >
-                    <Text style={styles.inputLabel}>
-                     
-                      {t("e-mail")}
-                    </Text>
-                    <TextField
-                      placeholder={t("e-mail")}
-                      onChangeText={handleChange("email")}
-                      onBlur={handleBlur("email")}
-                      value={values.email}
-                      name={"email"}
-                      type={"email"}
-                      errorMessage={errors.email}
-                      keyboardType='email-address'
-                    />
-                  </Animated.View>
-
-                  {/* Password */}
-                  <Animated.View
-                    entering={FadeInDown.delay(400)
-                      .duration(1000)
-                      .springify()}
-                    style={{
-                      width: "100%",
-                    }}
-                  >
-                    <Text style={styles.inputLabel}>
-                      {t("password")}
-                    </Text>
-                    <TextField
-                      placeholder={t("password")}
-                      onChangeText={handleChange("password")}
-                      onBlur={handleBlur("password")}
-                      value={values.password}
-                      name={"password"}
-                      type={"password"}
-                      secureTextEntry={true}
-                      errorMessage={errors.password}
-                    />
-                  </Animated.View>
-
-
-                  {/* Submit Button */}
-                  <Animated.View
-                    entering={FadeInDown.delay(600)
-                      .duration(1000)
-                      .springify()
-                    }
-                    style={{ width:'100%'}}
-                  >
-                    <Button 
-                      title={`${t("sign-in")}`}
-                      onPress={handleSubmit}
-                      loading={isLoading}
-                      disabled={isLoading}                      
-                      size="md"
-                      color="primary"
-                      titleStyle={{ fontSize: 16 }}
-                      radius={"sm"}
-                    />  
-                  </Animated.View>
-                </View>                            
-              </>
-            )}
-          </Formik>  
-                        
-          <Animated.View
-            entering={FadeInDown.delay(400)
-              .duration(1000)
-              .springify()}
-            style={{
-              width: "100%",
-              flexDirection:'row',
-              gap:theme.spacing.md,
-              marginTop: theme.spacing.md
-            }}
-          >
-            <Text
-              style={{
-                ...Fonts.grayColor16Regular,
+    <PageTemplate 
+      title={`${t("sign-in")}`}
+      children={(
+        <>
+          <View style={styles.formContiner}>
+            <Formik
+              initialValues={{
+                email: "",
+                password: "",
+              }}
+              validationSchema={SignInSchema}
+              onSubmit={async (values) => {
+                await SignIn(values);
               }}
             >
-              {`${t("new-user-message")}`}
-            </Text>
+              {({
+                handleChange,
+                handleBlur,
+                handleSubmit,
+                values,
+                errors,
+                setFieldValue,
+              }) => (
+                <>
+                  <View
+                    style={{
+                      width: "100%",
+                      flexDirection: "column",
+                      gap: theme.spacing.xl,
+                    }}
+                  >
+                    {/* Email */}
+                    <Animated.View
+                      entering={FadeInDown.delay(400)
+                        .duration(1000)
+                        .springify()}
+                      style={{
+                        width: "100%",
+                      }}
+                    >
+                      <Text style={styles.inputLabel}>
+                      
+                        {t("e-mail")}
+                      </Text>
+                      <TextField
+                        placeholder={t("e-mail")}
+                        onChangeText={handleChange("email")}
+                        onBlur={handleBlur("email")}
+                        value={values.email}
+                        name={"email"}
+                        type={"email"}
+                        errorMessage={errors.email}
+                        keyboardType='email-address'
+                      />
+                    </Animated.View>
 
-            <Link
-              href={"./signup"}
+                    {/* Password */}
+                    <Animated.View
+                      entering={FadeInDown.delay(400)
+                        .duration(1000)
+                        .springify()}
+                      style={{
+                        width: "100%",
+                      }}
+                    >
+                      <Text style={styles.inputLabel}>
+                        {t("password")}
+                      </Text>
+                      <TextField
+                        placeholder={t("password")}
+                        onChangeText={handleChange("password")}
+                        onBlur={handleBlur("password")}
+                        value={values.password}
+                        name={"password"}
+                        type={"password"}
+                        secureTextEntry={true}
+                        errorMessage={errors.password}
+                      />
+                    </Animated.View>
+
+
+                    {/* Submit Button */}
+                    <Animated.View
+                      entering={FadeInDown.delay(600)
+                        .duration(1000)
+                        .springify()
+                      }
+                      style={{ width:'100%'}}
+                    >
+                      <Button 
+                        title={`${t("sign-in")}`}
+                        onPress={handleSubmit}
+                        loading={isLoading}
+                        disabled={isLoading}                      
+                        size="md"
+                        color="primary"
+                        titleStyle={{ ...pageStyle.button20, color: theme.colors.white, }}
+                        radius={"sm"}
+                      />  
+                    </Animated.View>
+                  </View>                            
+                </>
+              )}
+            </Formik>  
+                          
+            <Animated.View
+              entering={FadeInDown.delay(400)
+                .duration(1000)
+                .springify()}
+              style={{
+                width: "100%",
+                flexDirection:'row',
+                gap:theme.spacing.md,
+                marginTop: theme.spacing.md
+              }}
             >
               <Text
                 style={{
-                  ...Fonts.primaryColor16Medium, 
-                  color:theme.colors.primary,
-                  textDecorationLine: "underline",
-                  textDecorationColor: theme.colors.primary,
+                  ...Fonts.grayColor16Regular,
                 }}
               >
-                {`${t("sign-up")}`}
+                {`${t("new-user-message")}`}
               </Text>
-            </Link>
-          </Animated.View>          
-        </View>        
-      </ScrollView>
-    </View>
+
+              <Link
+                href={"./signup"}
+              >
+                <Text
+                  style={{
+                    ...Fonts.primaryColor16Medium, 
+                    color:theme.colors.primary,
+                    textDecorationLine: "underline",
+                    textDecorationColor: theme.colors.primary,
+                  }}
+                >
+                  {`${t("sign-up")}`}
+                </Text>
+              </Link>
+            </Animated.View>          
+          </View>   
+        </>
+      )}
+    />
   )
 }
 
@@ -203,6 +192,7 @@ const styles = StyleSheet.create({
     width: "100%",
   },
   inputLabel: {
+    fontFamily: "Coolvetica",
     marginBottom: theme.spacing?.xs,
     fontWeight: "bold",
     paddingHorizontal: theme.spacing?.xs,

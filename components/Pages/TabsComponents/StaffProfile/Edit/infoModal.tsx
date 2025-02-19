@@ -351,14 +351,13 @@ const InfoModal = ({user, visible, onClose, handleSuccess}: props) => {
                       title={`${t("cancel")}`}
                       onPress={onClose}
                       size='md'
-                      type='outline'
-                      titleStyle={{ 
-                        fontSize: 16, 
-                      }}
+                      type='clear'
+                      titleStyle={{...pageStyle.button16}}
                       radius={"sm"}
                       containerStyle={{
                         ...styles.buttonContainer,
                         borderColor: theme.colors.primary,
+                        borderWidth: 2,
                       }}
                     />
                       
@@ -368,10 +367,13 @@ const InfoModal = ({user, visible, onClose, handleSuccess}: props) => {
                       onPress={() => handleSubmit()}
                       size='md'
                       color='primary'
-                      titleStyle={{ fontSize: 16 }}
+                      titleStyle={{...pageStyle.button16}}
                       radius={"sm"}
                       containerStyle={{
-                        ...styles.buttonContainer
+                        ...styles.buttonContainer,
+                        borderColor: theme.colors.primary,                     
+                        borderWidth: 2,
+                        borderRadius:10
                       }}
                     />
                   </View>
@@ -392,6 +394,7 @@ const styles = StyleSheet.create({
     width: "100%",
   },
   inputLabel: {
+    fontFamily: "Coolvetica",
     marginBottom: theme.spacing?.xs,
     fontWeight: "bold",
     paddingHorizontal: theme.spacing?.xs,
@@ -400,7 +403,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     gap: theme.spacing?.md,
     width: '100%',
-    marginTop: theme.spacing?.lg,
+    marginVertical: theme.spacing?.lg,
   },
   buttonContainer: {
     flex: 1,

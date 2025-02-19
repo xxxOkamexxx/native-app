@@ -1,5 +1,5 @@
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
-import React from 'react'
+import React, { useState } from 'react'
 import { useRouter } from 'expo-router';
 
 import { Fonts, theme } from '@/constants/Theme';
@@ -8,7 +8,8 @@ import { useTranslation } from 'react-i18next';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import dayjs from 'dayjs'
 
-import { IUser } from '@/types/UserTypes';
+import { IExperience, IUser } from '@/types/UserTypes';
+import EditExperienceModal from './Edit/editExperienceModal';
 
 
 interface props {
@@ -17,6 +18,9 @@ interface props {
 }
 
 const Experience = ({user, showEditButton}: props) => {
+  const [openEditModal, setOpenEditModal] = useState(false)
+  const [expData, setExpData] = useState<IExperience>()
+  
   const { theme } = useTheme()
   const { t } = useTranslation();
   const router = useRouter()
@@ -31,9 +35,7 @@ const Experience = ({user, showEditButton}: props) => {
         .sort((a, b) => new Date(b.startDate).getTime() - new Date(a.startDate).getTime())
         .slice(0, 2)
         .map((exp, index, array) => (
-          <View 
-            key={exp.id}
-          >
+          <View key={exp.id}>
             <View
               style={{
                 flexDirection: 'row',
@@ -91,38 +93,50 @@ const Experience = ({user, showEditButton}: props) => {
                 >
                   {exp.description}
                 </Text>
-
               </View>
               
               <View>
-                <TouchableOpacity
-                  style={{
-                    ...styles.itemEditButton,
-                    backgroundColor: theme.colors.background
-                  }}
-                  onPress={() => {}} 
-                >
-                  <MaterialCommunityIcons 
-                    name='pencil' 
-                    size={24} 
-                    color={ theme.mode === 'light'
-                      ? theme.colors.grey3
-                      : theme.colors.white
-                    }
-                  />
-                </TouchableOpacity>
-
+                { showEditButton &&
+                  <TouchableOpacity
+                    style={{
+                      ...styles.itemEditButton,
+                      backgroundColor: theme.colors.background
+                    }}
+                    onPress={() => {
+                      setExpData(exp)
+                      setOpenEditModal(true)
+                    }} 
+                  >
+                    <MaterialCommunityIcons 
+                      name='pencil' 
+                      size={24} 
+                      color={ theme.mode === 'light'
+                        ? theme.colors.grey3
+                        : theme.colors.white
+                      }
+                    />
+                  </TouchableOpacity>
+                }
               </View>
            
-              </View>
+            </View>
 
-              {index < array.length - 1 && 
-                <Divider color={theme.colors.greyOutline} />
-              }
+            {index < array.length - 1 && 
+              <Divider color={theme.colors.greyOutline} />
+            }
 
           </View>
         ))
       }
+      {/* Modal */}
+      <EditExperienceModal
+        data={expData!}
+        visible={openEditModal}
+        onClose={() => setOpenEditModal(!openEditModal)}
+        handleSuccess={() => {
+          // 🚧 Add function after successful data update (refetch userData)
+        }} 
+      />
     </View>
   )
 }
