@@ -14,6 +14,7 @@ import { IExperience, IUser } from '@/types/UserTypes';
 import Button from '@/components/UI/Button';
 import EditExperienceModal from './Experience/editExperienceModal';
 import HeaderTemplate from '../headerTemplate';
+import AddExperienceModal from './Experience/addExperience';
 
 interface props {
   visible: boolean;
@@ -169,7 +170,9 @@ const AllExperience = ({visible, id, onClose, handleSuccess}: props) => {
                 />
               }
               size='sm'
-              onPress={() => {}} 
+              onPress={() => {
+                setOpenAddModal(true)
+              }} 
               type='clear'
             />
           </View>
@@ -183,6 +186,16 @@ const AllExperience = ({visible, id, onClose, handleSuccess}: props) => {
               handleSuccess()
               refetch()}
             }
+          />
+
+          <AddExperienceModal
+            visible={openAddModal}
+            id={userId}
+            onClose={() => setOpenAddModal(!openAddModal)}
+            handleSuccess={() => {
+              handleSuccess()
+              refetch()
+            }}
           />
         </>
       )}
