@@ -378,7 +378,13 @@ const EditExperienceModal = ({data, visible, onClose, handleSuccess}: props) => 
                         </TouchableOpacity>                     
                         {showEndTimePicker && (
                           <DateCalendar 
-                            date={values.endDate !== null ? values.endDate : data.endDate}
+                            date={
+                              values.endDate !== null 
+                              ? values.endDate 
+                              : data.endDate !== null 
+                                ? data.endDate 
+                                : dayjs().format("YYYY-MM-DD")
+                            }
                             onClose={() => setShowEndTimePicker(false)}
                             setDate={(date) => {
                               const formatDate = dayjs(date).format('YYYY-MM-DD')
