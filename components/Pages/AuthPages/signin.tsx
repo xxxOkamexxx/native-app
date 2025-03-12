@@ -11,7 +11,7 @@ import { getUserById } from '@/api/backend'
 import { Text } from '@rneui/themed'
 import { Fonts, Sizes, theme } from '@/constants/Theme'
 
-import { TextField } from '@/components/UI/Input/TextField'
+import { IconTextField, TextField } from '@/components/UI/Input/TextField'
 import { Formik } from "formik";
 import * as Yup from "yup";
 import Button from '@/components/UI/Button'
@@ -107,14 +107,13 @@ const SignInPage = () => {
                       <Text style={styles.inputLabel}>
                         {t("password")}
                       </Text>
-                      <TextField
+                      <IconTextField
                         placeholder={t("password")}
                         onChangeText={handleChange("password")}
                         onBlur={handleBlur("password")}
                         value={values.password}
                         name={"password"}
                         type={"password"}
-                        secureTextEntry={true}
                         errorMessage={errors.password}
                       />
                     </Animated.View>
@@ -152,12 +151,13 @@ const SignInPage = () => {
                 width: "100%",
                 flexDirection:'row',
                 gap:theme.spacing.md,
-                marginTop: theme.spacing.md
+                marginTop: theme.spacing.md,
+                alignItems: 'center'
               }}
             >
               <Text
                 style={{
-                  ...Fonts.grayColor16Regular,
+                  ...pageStyle.headline03,
                 }}
               >
                 {`${t("new-user-message")}`}
@@ -168,10 +168,10 @@ const SignInPage = () => {
               >
                 <Text
                   style={{
-                    ...Fonts.primaryColor16Medium, 
-                    color:theme.colors.primary,
+                    ...pageStyle.headline02, 
+                    color:theme.colors.secondary,
                     textDecorationLine: "underline",
-                    textDecorationColor: theme.colors.primary,
+                    textDecorationColor: theme.colors.secondary,
                   }}
                 >
                   {`${t("sign-up")}`}
@@ -192,7 +192,7 @@ const styles = StyleSheet.create({
     width: "100%",
   },
   inputLabel: {
-    fontFamily: "Coolvetica",
+    ... pageStyle.smText,
     marginBottom: theme.spacing?.xs,
     fontWeight: "bold",
     paddingHorizontal: theme.spacing?.xs,

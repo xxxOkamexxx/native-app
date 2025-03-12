@@ -9,15 +9,17 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import dayjs from 'dayjs'
 
 import { IExperience, IUser } from '@/types/UserTypes';
-import EditExperienceModal from './Edit/editExperienceModal';
+import EditExperienceModal from './Experience/editExperienceModal';
+import pageStyle from '@/constants/Styles';
 
 
 interface props {
   user: IUser;
   showEditButton: boolean;
+  handleSuccess: () => void
 }
 
-const Experience = ({user, showEditButton}: props) => {
+const Experience = ({user, showEditButton, handleSuccess}: props) => {
   const [openEditModal, setOpenEditModal] = useState(false)
   const [expData, setExpData] = useState<IExperience>()
   
@@ -50,7 +52,7 @@ const Experience = ({user, showEditButton}: props) => {
               >
                 <Text 
                   style={{
-                    ...Fonts.grayColor14Bold,
+                    ...pageStyle.headline03,
                     color: theme.colors.grey0,
                   }}
                 >
@@ -59,7 +61,7 @@ const Experience = ({user, showEditButton}: props) => {
 
                 <Text 
                   style={{
-                    ...Fonts.grayColor14Regular,
+                    ...pageStyle.smText,
                     color: theme.colors.grey0,
                   }}
                 >
@@ -68,15 +70,15 @@ const Experience = ({user, showEditButton}: props) => {
 
                 <Text 
                   style={{
-                    ...Fonts.grayColor14Regular,
+                    ...pageStyle.smText,
                     color: theme.colors.grey3,
                   }}
                 >
-                  {dayjs(exp.startDate).format('YYYY-MM-DD')} - {exp.endDate ? dayjs(exp.endDate).format('YYYY-MM-DD') : 'Ongoing'}
+                  {dayjs(exp.startDate).format('YYYY-MM-DD')} - {exp.endDate ? dayjs(exp.endDate).format('YYYY-MM-DD') : `${t("ongoing")}`}
                 </Text>
                 
                 <Text style={{
-                  ...Fonts.grayColor14Regular,
+                  ...pageStyle.smText,
                   color: theme.colors.grey0,
                 }}
                 >
@@ -87,7 +89,7 @@ const Experience = ({user, showEditButton}: props) => {
                   ellipsizeMode='clip'
                   numberOfLines={2}
                   style={{
-                    ...Fonts.grayColor14Regular,
+                    ...pageStyle.smText,
                     color: theme.colors.grey0,
                   }}
                 >
@@ -133,9 +135,7 @@ const Experience = ({user, showEditButton}: props) => {
         data={expData!}
         visible={openEditModal}
         onClose={() => setOpenEditModal(!openEditModal)}
-        handleSuccess={() => {
-          // 🚧 Add function after successful data update (refetch userData)
-        }} 
+        handleSuccess={handleSuccess} 
       />
     </View>
   )

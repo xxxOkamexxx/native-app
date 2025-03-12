@@ -28,3 +28,7 @@ export {
 export {
   getUserPostsAndShares,
 } from "./community"
+
+export {
+  getSkillsList,
+} from "./skill"

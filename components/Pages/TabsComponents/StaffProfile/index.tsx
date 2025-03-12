@@ -25,6 +25,9 @@ import AllEducation from './allEducation';
 import pageStyle from '@/constants/Styles';
 import AllExperience from './allExperience';
 import AllActivity from './allActivity';
+import { rgbaToHex } from '@/utils/rgba-to-hex';
+import { fromPairs } from 'lodash';
+import AddExperienceModal from './Experience/addExperience';
 
 interface props {
   user: IUser;
@@ -69,7 +72,6 @@ const PerofileIndex = ({user, showEditButton, post, refetch}: props) => {
   const [openAddLanguageDialog, setOpenAddLanguageDialog] = useState<boolean>(false)
 
   const handleImageUpdate = async () => {
-
     const result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes:['images'],
       allowsEditing: true,
@@ -106,7 +108,7 @@ const PerofileIndex = ({user, showEditButton, post, refetch}: props) => {
       <View
         style={{
           ...styles.itemContainer,
-          backgroundColor: theme.colors.secondary
+          backgroundColor: theme.colors.background
         }}
       >
         {/* Item Header */}
@@ -141,7 +143,7 @@ const PerofileIndex = ({user, showEditButton, post, refetch}: props) => {
           </View>
         </View>
         
-        <Divider color={theme.colors.greyOutline} />
+        <Divider color={theme.colors.divider} />
 
         {/* Item */}
         <View
@@ -182,19 +184,22 @@ const PerofileIndex = ({user, showEditButton, post, refetch}: props) => {
     >
       {/* header */}
       <View
-        style={{...styles.headerContainer}}
+        style={{
+          ...styles.headerContainer,
+          backgroundColor: theme.colors.secondary
+        }}
       >
 
         <View
           style={{
             ...styles.headerTextContainer,
-            backgroundColor: theme.colors.secondary
+            backgroundColor: theme.colors.searchBg,
           }}
         >
           <Text
             style={{
               ...styles.headerText,
-              ...Fonts.grayColor20Bold,
+              ...pageStyle.headline01,
               color: theme.colors.grey0
             }}
           >
@@ -204,7 +209,7 @@ const PerofileIndex = ({user, showEditButton, post, refetch}: props) => {
           <Text
             style={{
               ...styles.headerText,
-              ...Fonts.grayColor14Medium,
+              ...pageStyle.headline03,
               color: theme.colors.grey0
             }}
           >
@@ -216,19 +221,19 @@ const PerofileIndex = ({user, showEditButton, post, refetch}: props) => {
         <View
           style={{
             ...styles.avatarContainer,
-            backgroundColor: theme.colors.secondary
+            backgroundColor: theme.colors.background
           }}
         >
           {user.profileImage  
             ? <Avatar size={80} rounded source={{uri: user?.profileImage}} />      
-            :<Avatar size={80} rounded icon={{name: "account", type: "material-community"}} containerStyle={{ backgroundColor: theme.colors.grey3 }}  />
+            : <Avatar size={80} rounded icon={{name: "account", type: "material-community"}} containerStyle={{ backgroundColor: theme.colors.grey3 }}  />
           }
 
           {showEditButton && (
             <TouchableOpacity
               style={{
                 ...styles.imageEditButton,
-                backgroundColor: theme.colors.background
+                backgroundColor: theme.colors.searchBg
               }}
               onPress={handleImageUpdate}
             >
@@ -247,7 +252,7 @@ const PerofileIndex = ({user, showEditButton, post, refetch}: props) => {
       {/* Main */}
       <ItemContainer
         title={t("information")}
-        children={<Information user={user} showEditButton={showEditButton}/>}
+        children={<Information user={user} showEditButton={showEditButton} />}
         showFooter={false}
         btnChildren={
           <TouchableOpacity
@@ -308,7 +313,7 @@ const PerofileIndex = ({user, showEditButton, post, refetch}: props) => {
           >
             <Text
               style={{
-                ...Fonts.primaryColor14Medium,
+                ...pageStyle.button16,
                 color: theme.colors.primary
               }}
             >
@@ -324,7 +329,7 @@ const PerofileIndex = ({user, showEditButton, post, refetch}: props) => {
           >
             <Text
               style={{
-                ...Fonts.grayColor14Medium,
+                ...pageStyle.button16,
                 color: theme.colors.grey0
               }}
             >
@@ -340,6 +345,7 @@ const PerofileIndex = ({user, showEditButton, post, refetch}: props) => {
           <Experience 
             user={user} 
             showEditButton={showEditButton} 
+            handleSuccess={() => refetch()}
           />
         }
         btnChildren={
@@ -367,7 +373,7 @@ const PerofileIndex = ({user, showEditButton, post, refetch}: props) => {
           >
             <Text
               style={{
-                ...Fonts.grayColor14Medium,
+                ...pageStyle.button16,
                 color: theme.colors.grey0
               }}
             >
@@ -410,7 +416,7 @@ const PerofileIndex = ({user, showEditButton, post, refetch}: props) => {
           >
             <Text
               style={{
-                ...Fonts.grayColor14Medium,
+                ...pageStyle.button16,
                 color: theme.colors.grey0
               }}
             >
@@ -436,14 +442,14 @@ const PerofileIndex = ({user, showEditButton, post, refetch}: props) => {
                 style={{
                   padding:theme.spacing.sm, 
                   backgroundColor: theme.colors.primary, 
-                  borderRadius:8,
+                  borderRadius: 8,
                   flexDirection: 'row',
                   gap: theme.spacing.sm
                 }}
               >
                 <Text 
                   style={{
-                    ...Fonts.whiteColor14Medium,
+                    ...pageStyle.button16,
                     color: theme.colors.white,
                   }}
                 >
@@ -497,7 +503,7 @@ const PerofileIndex = ({user, showEditButton, post, refetch}: props) => {
                   <View key={lang.id} style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
                     <Text
                       style={{
-                        ...Fonts.grayColor16Regular,
+                        ...pageStyle.button16,
                         color: theme.colors.grey0,
                       }}
                     >
@@ -517,7 +523,18 @@ const PerofileIndex = ({user, showEditButton, post, refetch}: props) => {
                   </View>
                 ))
               ) : (
-                <Text>{`${t("add-language-skills")}`}</Text> // Message when there are no languages
+                <TouchableOpacity
+                  onPress={() => setOpenAddSkillsDialog(true)}
+                >
+                  <Text
+                    style={{
+                      ...pageStyle.button16,
+                      color: theme.colors.grey0
+                    }}
+                  >
+                    {`${t("add-language-skills")}`}
+                  </Text> // Message when there are no languages
+                </TouchableOpacity>
             )}
           </View>
         }
@@ -580,6 +597,12 @@ const PerofileIndex = ({user, showEditButton, post, refetch}: props) => {
         onClose={() => setOpenAllExperienceDialog(!openAllExperienceDialog)}
         handleSuccess={() => refetch()}
       />
+      <AddExperienceModal 
+        visible={openAddExperienceDialog}
+        id={user.id}
+        onClose={() => setOpenAddExperienceDialog(!openAddExperienceDialog)}
+        handleSuccess={() => refetch()}
+      />
       <AllEducation 
         visible={openAllEducationDialog}
         id={user.id}
@@ -588,7 +611,7 @@ const PerofileIndex = ({user, showEditButton, post, refetch}: props) => {
       /> 
       <AllActivity 
         visible={openAllActivityDialog}
-        onClose={() => setOpenAllActivityDialog(!openAllActivityDialog)}
+        onClose={() => setOpenAllActivityDialog(false)}
       />     
     </View>
   )
@@ -600,15 +623,14 @@ const styles = StyleSheet.create({
   headerContainer: {
     width: '100%',
     height: 150,
-    backgroundColor: "#D4AF35",
     position: 'relative'
   },
   avatarContainer: {
     position: 'absolute',
-    bottom: 0,
+    bottom: 8,
     left: 16,
-    width: 96,
-    height: 96,
+    width: 92,
+    height: 92,
     borderRadius: 100,
     alignItems: 'center',
     justifyContent: 'center'
@@ -629,8 +651,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     position: 'absolute',
-    right: 0,
-    bottom: 8,
+    right: -8,
+    bottom: 4,
   },
   itemContainer: {
     width: '100%',

@@ -26,10 +26,12 @@ const styles = StyleSheet.create({
     paddingVertical: Sizes.fixPadding - 3,
   },
   title: {
+    fontFamily: "Coolvetica",
     fontSize: 24,
     fontWeight: "bold",
   },
   description: {
+    fontFamily: "Coolvetica",
     fontSize: 16,
   },
 });

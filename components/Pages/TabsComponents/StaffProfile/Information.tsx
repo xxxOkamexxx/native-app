@@ -8,6 +8,7 @@ import { useTranslation } from 'react-i18next';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 import { IUser } from '@/types/UserTypes';
+import pageStyle from '@/constants/Styles';
 
 
 interface props {
@@ -29,7 +30,7 @@ const Information = ({user, showEditButton}: props) => {
         <MaterialCommunityIcons name='account-outline' size={16} color={theme.colors.grey0} />
         <Text
           style={{
-            ...Fonts.grayColor14Bold,
+            ...pageStyle.headline03,
             color: theme.colors.grey0,
           }}
         >
@@ -37,7 +38,7 @@ const Information = ({user, showEditButton}: props) => {
         </Text>
         <Text
           style={{
-            ...Fonts.grayColor14Regular,
+            ...pageStyle.headline03,
             color: theme.colors.grey0,
           }}
         >
@@ -51,7 +52,7 @@ const Information = ({user, showEditButton}: props) => {
         <MaterialCommunityIcons name='map-marker-outline' size={16} color={theme.colors.grey0} />
         <Text
           style={{
-            ...Fonts.grayColor14Bold,
+            ...pageStyle.headline03,
             color: theme.colors.grey0,
           }}
         >
@@ -59,7 +60,7 @@ const Information = ({user, showEditButton}: props) => {
         </Text>
         <Text
           style={{
-            ...Fonts.grayColor14Regular,
+            ...pageStyle.headline03,
             color: theme.colors.grey0,
           }}
         >
@@ -73,7 +74,7 @@ const Information = ({user, showEditButton}: props) => {
         <MaterialCommunityIcons name='email-outline' size={16} color={theme.colors.grey0} />
         <Text
           style={{
-            ...Fonts.grayColor14Bold,
+            ...pageStyle.headline03,
             color: theme.colors.grey0,
           }}
         >
@@ -81,7 +82,7 @@ const Information = ({user, showEditButton}: props) => {
         </Text>
         <Text
           style={{
-            ...Fonts.grayColor14Regular,
+            ...pageStyle.headline03,
             color: theme.colors.grey0,
           }}
         >

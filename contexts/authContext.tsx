@@ -13,6 +13,7 @@ import { IUser } from "@/types/UserTypes"
 import { AxiosError } from "axios";
 import { getItem } from "expo-secure-store";
 import { getUserById } from "@/api/backend";
+import { useTranslation } from "react-i18next";
 
 
 export interface IAuthState {
@@ -84,6 +85,7 @@ export function useAuth() {
 export function AuthProvider (props: any) {
   const toast = useToast();
   const router = useRouter();
+  const { t } = useTranslation();
 
   const [isLoadingSession, setIsLoadingSession] = useState<boolean>(false);
   const [loadingLocation, setLoadingLocation] = useState<boolean>(true);
@@ -156,7 +158,7 @@ export function AuthProvider (props: any) {
       // console.log("Login response:", response.data);
 
       const { token, id } = response.data;
-      // console.log('token', token); // ✅
+      // console.log('token', token); 
       if (token) {
         setAuthState({
           userData: null,
@@ -164,9 +166,9 @@ export function AuthProvider (props: any) {
           token: token,
         });
         setSession(token);
-        // console.log('session:', session) // ✅
+        // console.log('session:', session)
         
-        toast.show("Login successful", {
+        toast.show(`${t("log-in-successful-message")}`, {
           type: "success",
           placement: "top",
           duration: 3000,
@@ -211,7 +213,7 @@ export function AuthProvider (props: any) {
         });
         setSession(token);
   
-        toast.show("Sign up successful", {
+        toast.show(`${t("sign-up-successful-message")}`, {
           type: "success",
           placement: "top",
           duration: 3000,

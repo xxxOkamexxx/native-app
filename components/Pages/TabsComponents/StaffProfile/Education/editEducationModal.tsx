@@ -52,6 +52,9 @@ const EditEducationModal = ({data, visible, onClose, handleSuccess}: props) => {
     },
   });
 
+  const handleDelete = () => {
+    // 🚧 Add function
+  }
 
   return (
     <Modal
@@ -86,12 +89,21 @@ const EditEducationModal = ({data, visible, onClose, handleSuccess}: props) => {
               }}
             >
               {({ handleChange, handleBlur, handleSubmit, values, errors, setFieldValue }) => (
-                <>
+                <>                                  
+                  <View
+                    style={{
+                      width: "100%",
+                      flexDirection: "column",
+                      gap: theme.spacing.xl,
+                      marginTop: theme.spacing.xl,
+                      marginBottom: theme.spacing.xl,
+                    }}
+                  >
+                    {/* 🚧 Add Edit form here */}
 
-                  {/* 🚧 Add Edit form here */}
-                  
-                  <Text>{data.name}</Text>
-                            
+                  </View>
+
+                  {/* Button Group */}
                   <View
                     style={{
                       ...styles.buttonGroup
@@ -102,9 +114,7 @@ const EditEducationModal = ({data, visible, onClose, handleSuccess}: props) => {
                       onPress={onClose}
                       size='md'
                       type='clear'
-                      titleStyle={{ 
-                        fontSize: 16, 
-                      }}
+                      titleStyle={{ ...pageStyle.button16 }}
                       radius={"sm"}
                       containerStyle={{
                         ...styles.buttonContainer,
@@ -119,7 +129,7 @@ const EditEducationModal = ({data, visible, onClose, handleSuccess}: props) => {
                       onPress={() => handleSubmit()}
                       size='md'
                       color='primary'
-                      titleStyle={{ fontSize: 16 }}
+                      titleStyle={{ ...pageStyle.button16}}
                       radius={"sm"}
                       containerStyle={{
                         ...styles.buttonContainer,
@@ -135,10 +145,10 @@ const EditEducationModal = ({data, visible, onClose, handleSuccess}: props) => {
 
             <Button
               title={`${t("delete")}`}
-              onPress={() => {}}
+              onPress={handleDelete}
               size='md'
               color='error'
-              titleStyle={{ fontSize: 16 }}
+              titleStyle={{ ...pageStyle.button16}}
               radius={"sm"}
               containerStyle={{
                 ...styles.buttonContainer,
@@ -161,6 +171,7 @@ const styles = StyleSheet.create({
     width: "100%",
   },
   inputLabel: {
+    fontFamily: "Coolvetica",
     marginBottom: theme.spacing?.xs,
     fontWeight: "bold",
     paddingHorizontal: theme.spacing?.xs,
@@ -168,8 +179,9 @@ const styles = StyleSheet.create({
   buttonGroup:{
     flexDirection: 'row',
     gap: theme.spacing?.md,
-    width: '100%',   
-    marginVertical: theme.spacing?.lg,
+    width: '100%',
+    marginTop: theme.spacing?.xl,
+    marginBottom: theme.spacing?.lg,
   },
   buttonContainer: {
     flex: 1,

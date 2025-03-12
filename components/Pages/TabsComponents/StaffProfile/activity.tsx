@@ -50,69 +50,73 @@ const Activity = ({post}: props) => {
           new Date (b.createdAt).getTime() - new Date(a.createdAt).getTime())
         ).slice(0, 2)
         .map((p, index, array) => (
-          <TouchableOpacity
-            key={p.postId}
-          >
-            <View
-              style={{
-                ...styles.postItemContainer
-              }}
-            >
+          <View key={p.postId}>
+            <TouchableOpacity>
               <View
                 style={{
-                  flex: 2, 
-                  flexDirection: 'column',
-                  gap: theme.spacing.md
+                  ...styles.postItemContainer
                 }}
               >
-
-                <Text
-                  ellipsizeMode='clip'
-                  numberOfLines={2}
-                  style={{ 
-                    ...Fonts.grayColor14Regular,
-                    color: theme.colors.grey0,
+                <View
+                  style={{
+                    flex: 2, 
+                    flexDirection: 'column',
+                    gap: theme.spacing.md
                   }}
                 >
-                  {p.content}
-                </Text>
 
-                <TouchableOpacity>
                   <Text
-                    style={{
-                      ...Fonts.grayColor14Regular,
-                      color: theme.colors.primary,
+                    ellipsizeMode='clip'
+                    numberOfLines={2}
+                    style={{ 
+                      ...pageStyle.smText,
+                      color: theme.colors.grey0,
                     }}
                   >
-                    {`${t("read-more")}...`}
+                    {p.content}
                   </Text>
-                </TouchableOpacity>
+
+                  <TouchableOpacity>
+                    <Text
+                      style={{
+                        ...pageStyle.button16,
+                        color: theme.colors.secondary,
+                      }}
+                    >
+                      {`${t("read-more")}...`}
+                    </Text>
+                  </TouchableOpacity>
+                </View>
+
+
+                {p.image 
+                  ? <Image
+                      source={{uri: p.image}} 
+                      containerStyle={{ 
+                        ...styles.imageSize,
+                        backgroundColor: theme.colors.disabled
+                      }}
+                    />
+                  : <View 
+                      style={{
+                        ...styles.imageSize,
+                        backgroundColor: theme.colors.disabled,
+                        alignItems: 'center',
+                        justifyContent: 'center'
+                      }} 
+                    />
+                }
+        
               </View>
+            </TouchableOpacity>
 
-
-              {p.image 
-                ? <Image
-                    source={{uri: p.image}} 
-                    containerStyle={{ 
-                      ...styles.imageSize,
-                      backgroundColor: theme.colors.secondary
-                    }}
-                  />
-                : <View 
-                    style={{
-                      ...styles.imageSize,
-                      backgroundColor: theme.colors.secondary,
-                      alignItems: 'center',
-                      justifyContent: 'center'
-                    }} 
-                  />
-              }
-       
-            </View>
             {index < array.length - 1 && 
-              <Divider color={theme.colors.greyOutline} />
+              <Divider 
+                style={{marginTop: theme.spacing.md}}
+                color={theme.colors.greyOutline} 
+              />
             }
-          </TouchableOpacity>
+          </View>
         ))
       }
     </View>
@@ -132,7 +136,7 @@ const styles = StyleSheet.create({
     gap: theme.spacing?.md,
   },
   imageSize: {
-    width: 100,
-    height: 100
+    width: 90,
+    height: 90,
   }
 })

@@ -13,6 +13,7 @@ export interface IColors {
   grey3: string;
   grey4: string;
   grey5: string;
+  modal: string;
   greyOutline: string;
   searchBg: string;
   success: string;
@@ -20,6 +21,7 @@ export interface IColors {
   error: string;
   disabled: string;
   divider: string;
+  cardBg: string;
 }
 
 export interface Theme {
@@ -48,32 +50,38 @@ export const theme = createTheme({
   lightColors: {
     ...lightColors,
     background: "rgb(248, 247, 250)",
-    primary: "#7367F0",
-    secondary: "#fff",
+    primary: "#252525",
+    secondary: "#D4AF35",
     greyOutline: "rgb(133, 131, 138)",
-    divider: "rgb(229, 229, 230)",
+    divider: "rgb(79, 83, 103)",
     grey0: "rgb(15, 15, 15)",
-    searchBg: "#F8F7FA",
+    grey3: "#8F8F8F",
+    searchBg: "rgba(248, 247, 250, 0.7)",
     white: "rgb(248, 247, 250)",
     black: "rgb(15, 15, 15)",
     success: "#00C851", // Define success color
     error: "#ff4444", // Define error color
     warning: "#FFBB33", // Define warning color
+    cardBg: "rgba(212, 175, 53, 0.4)",
+    modal: "rgba(15, 15, 15, 0.6)",
   },
   darkColors: {
     ...darkColors,
-    background: "#25293C",
-    primary: "#5f58c0",
-    secondary: "#3B405B",
+    background: "#252525",
+    primary: "#D4AF35",
+    secondary: "#8F8F8F",
     greyOutline: "rgb(144, 157, 170)",
-    divider: "rgb(79, 83, 103)",
+    divider: "rgb(229, 229, 230)",
     grey0: "rgb(241, 241, 241)",
-    searchBg: "#3B405B",
+    grey3: "#8F8F8F",
+    searchBg: "rgba(37, 37, 37, 0.7)",
     white: "rgb(248, 247, 250)",
     black: "rgb(15, 15, 15)",
     success: "#00C851", // Define success color
     error: "#ff4444", // Define error color
     warning: "#FFBB33", // Define warning color
+    cardBg: "rgba(248, 247, 250, 0.7)",
+    modal: "rgba(15, 15, 15, 0.6)",
   },
   components: {
     CheckBox: (props, theme) => ({
@@ -129,10 +137,10 @@ export const theme = createTheme({
     }),
     Text: (props, theme) => ({
       h1Style: {
-        fontSize: 30,
+        fontSize: 24,
       },
       h2Style: {
-        fontSize: 25,
+        fontSize: 20,
       },
       style: {
         color: theme.colors.grey0,
@@ -335,7 +343,7 @@ export const screenHeight = Dimensions.get("window").height;
 export const commonStyles = {
   buttonStyle: {
     backgroundColor: theme.mode === "dark" ? theme.darkColors?.primary : theme.lightColors?.primary,
-    borderRadius: Sizes.fixPadding * 5.0,
+    borderRadius: Sizes.fixPadding * 4.0,
     margin: Sizes.fixPadding * 2.0,
     padding: Sizes.fixPadding - 2.0,
   },

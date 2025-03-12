@@ -14,7 +14,14 @@ const api = axios.create({
 
 api.interceptors.request.use(
   async function (config) {
+
+    if (config.url === "/Auth/login") {
+      return config;
+    }
+
     const token = await getItem(AUTH_TOKEN);
+    // console.log('token:',token);
+    
 
     if (!token) {
       // Handle redirection to the login page using your navigation library

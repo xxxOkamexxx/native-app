@@ -9,6 +9,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useQuery } from '@tanstack/react-query';
 import dayjs from 'dayjs';
 import { useAuth } from '@/contexts/authContext';
+import HeaderTemplate from '../headerTemplate';
 
 interface props {
   visible: boolean;
@@ -29,49 +30,17 @@ const AllActivity = ({visible, onClose}: props) => {
 
 
   return (
-    <Modal
+
+    <HeaderTemplate 
+      title={t("activity")}
       visible={visible}
-    >
-      <SafeAreaView
-        style={{
-          flex: 1,
-          backgroundColor: theme.colors.background,
-        }}
-      >
-        {/* Header */}
-        <View
-          style={{
-            flexDirection: 'row',
-            justifyContent: 'flex-start',
-            padding: Sizes.fixPadding,
-            backgroundColor: theme.colors.secondary,
-            gap: theme.spacing.md,
-            alignItems: 'center',
-            borderBottomWidth:1,
-            borderBottomColor: theme.colors.greyOutline
-          }}
-        >
-          <TouchableOpacity
-            onPress={onClose}
-          >
-            <MaterialCommunityIcons name='chevron-left' size={24} color={theme.colors.grey0}/>
-          </TouchableOpacity>
-          <Text
-            style={{
-              ...Fonts.grayColor20Medium,
-              color: theme.colors.grey0,
-            }}
-          >
-            {t("activity")}
-          </Text>
-        </View>
-
-
+      onClose={onClose}
+      children={
         <View
           style={{
             ...pageStyle.pageComponent,
             justifyContent: 'center',
-            backgroundColor: theme.colors.secondary
+            backgroundColor: theme.colors.background
           }}
         >
           <ScrollView
@@ -84,8 +53,9 @@ const AllActivity = ({visible, onClose}: props) => {
 
           </ScrollView>
         </View>
-      </SafeAreaView>
-    </Modal>
+      }
+    />
+
   )
 }
 

@@ -24,13 +24,13 @@ export interface IUser {
 
 
 export interface IExperience {
-  id: number;
+  id?: number;
   position: string;
   description: string;
   companyName: string;
   location: string;
   startDate: string; // ISO 8601 format
-  endDate: string; // ISO 8601 format
+  endDate?: string | null; // ISO 8601 format
 }
 
 export interface ILanguage {

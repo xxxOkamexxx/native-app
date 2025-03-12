@@ -20,7 +20,7 @@ export default function CustomTabBar({ state, descriptors, navigation }: any) {
     <View
       style={{
         ...styles.tabBarContainer,
-        backgroundColor: theme.colors.secondary,
+        backgroundColor: theme.colors.searchBg,
         borderColor: theme.colors.divider,
       }}
     >
@@ -43,7 +43,7 @@ export default function CustomTabBar({ state, descriptors, navigation }: any) {
                 styles.tabBarItem,
                 styles.middleTab,
                 {
-                  backgroundColor: isFocused ? theme.colors.secondary : theme.mode === "light" ? theme.colors.grey5 : theme.colors.grey2,
+                  backgroundColor: isFocused ? theme.colors.primary : theme.mode === "light" ? theme.colors.grey5 : theme.colors.grey2,
                 },
               ]}
             >

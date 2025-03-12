@@ -12,7 +12,8 @@ import dayjs from 'dayjs';
 import { useAuth } from '@/contexts/authContext';
 import { IEducation, IExperience, IUser } from '@/types/UserTypes';
 import Button from '@/components/UI/Button';
-import EditEducationModal from './Edit/editEducationModal';
+import EditEducationModal from './Education/editEducationModal';
+import HeaderTemplate from '../headerTemplate';
 
 interface props {
   visible: boolean;
@@ -48,172 +49,125 @@ const AllEducation = ({visible, id, onClose, handleSuccess}: props) => {
 
   
   return (
-    <Modal
+    <HeaderTemplate
+      title={`${t("education")}`}
       visible={visible}
-    >
-      <SafeAreaView
-        style={{
-          flex: 1,
-          backgroundColor: theme.colors.background,
-        }}
-      >
-        {/* Header */}
-        <View
-          style={{
-            flexDirection: 'row',
-            justifyContent: 'flex-start',
-            padding: Sizes.fixPadding,
-            backgroundColor: theme.colors.secondary,
-            gap: theme.spacing.md,
-            alignItems: 'center',
-            borderBottomWidth:1,
-            borderBottomColor: theme.colors.greyOutline
-          }}
-        >
-          <TouchableOpacity
-            onPress={onClose}
-          >
-            <MaterialCommunityIcons name='chevron-left' size={24} color={theme.colors.grey0}/>
-          </TouchableOpacity>
-          <Text
-            style={{
-              ...Fonts.grayColor20Medium,
-              color: theme.colors.grey0,
-            }}
-          >
-            {t("education")}
-          </Text>
-        </View>
-
-
-        <View
-          style={{
-            ...pageStyle.pageComponent,
-            justifyContent: 'center',
-            backgroundColor: theme.colors.secondary
-          }}
-        >
-          <ScrollView
-            automaticallyAdjustKeyboardInsets={true}
-            showsVerticalScrollIndicator={false}
-          >
-  
-            {/* Experience Lists */}
-            {data && data.length !== 0 && data
-              .sort((a:any, b:any) => new Date(b.startDate).getTime() - new Date(a.startDate).getTime())
-              .map((edu:IEducation,) => (
-                <View key={edu.id}>
+      onClose={onClose}
+      children={(
+        <>
+          {/* Education Edit Form */}
+          {data && data.length !== 0 && data
+            .sort((a:any, b:any) => new Date(b.startDate).getTime() - new Date(a.startDate).getTime())
+            .map((edu:IEducation,) => (
+              <View key={edu.id}>
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    justifyContent: 'space-between',
+                    width: '100%',
+                    paddingVertical: theme.spacing.md,
+                  }}
+                >
                   <View
                     style={{
-                      flexDirection: 'row',
-                      justifyContent: 'space-between',
-                      width: '100%',
-                      paddingVertical: theme.spacing.md,
+                      flex: 2
                     }}
                   >
-                    <View
+                    <Text 
                       style={{
-                        flex: 2
+                        ...pageStyle.headline03,
+                        color: theme.colors.grey0,
                       }}
                     >
-                      <Text 
+                      {edu.institution}        
+                    </Text>
+    
+                    <Text 
+                      style={{
+                        ...pageStyle.smText,
+                        color: theme.colors.grey0,
+                      }}
+                    >
+                      {edu.name}
+                    </Text>
+    
+                    <Text 
+                      style={{
+                        ...pageStyle.smText,
+                        color: theme.colors.grey3,
+                      }}
+                    >
+                      {dayjs(edu.startDate).format('YYYY-MM-DD')} - {edu.endDate ? dayjs(edu.endDate).format('YYYY-MM-DD') : 'Ongoing'}
+                    </Text>
+                  </View>
+    
+                  <View>
+                    { id === userId &&
+                      <TouchableOpacity
                         style={{
-                          ...Fonts.grayColor14Bold,
-                          color: theme.colors.grey0,
+                          ...styles.itemEditButton,
+                          backgroundColor: theme.colors.background
                         }}
+                        onPress={() => {
+                          setEduData(edu)
+                          setOpenEditModal(true)
+                        }} 
                       >
-                        {edu.institution}        
-                      </Text>
+                        <MaterialCommunityIcons 
+                          name='pencil' 
+                          size={24} 
+                          color={ theme.mode === 'light'
+                            ? theme.colors.grey3
+                            : theme.colors.white
+                          }
+                        />
+                      </TouchableOpacity>
+                    }
+                  </View>
+    
+                </View> 
       
-                      <Text 
-                        style={{
-                          ...Fonts.grayColor14Regular,
-                          color: theme.colors.grey0,
-                        }}
-                      >
-                        {edu.name}
-                      </Text>
-      
-                      <Text 
-                        style={{
-                          ...Fonts.grayColor14Regular,
-                          color: theme.colors.grey3,
-                        }}
-                      >
-                        {dayjs(edu.startDate).format('YYYY-MM-DD')} - {edu.endDate ? dayjs(edu.endDate).format('YYYY-MM-DD') : 'Ongoing'}
-                      </Text>
-                    </View>
-      
-                    <View>
-                      { id === userId &&
-                        <TouchableOpacity
-                          style={{
-                            ...styles.itemEditButton,
-                            backgroundColor: theme.colors.background
-                          }}
-                          onPress={() => {
-                            setEduData(edu)
-                            setOpenEditModal(true)
-                          }} 
-                        >
-                          <MaterialCommunityIcons 
-                            name='pencil' 
-                            size={24} 
-                            color={ theme.mode === 'light'
-                              ? theme.colors.grey3
-                              : theme.colors.white
-                            }
-                          />
-                        </TouchableOpacity>
-                      }
-                    </View>
-      
-                  </View> 
-       
-                  <Divider color={theme.colors.greyOutline} />
-                  
-                </View>
-              ))
-            }
+                <Divider color={theme.colors.greyOutline} />
+                
+              </View>
+            ))
+          }
 
-            {/* Footer */}
-            <View
-              style={{...styles.footerContainer}}
-            >
-              <Button
-                containerStyle={{width:'100%'}}
-                buttonStyle={{...styles.buttonStyle, }}
-                title={`${t("add")} ${t("education")}`}
-                titleStyle={{...Fonts.whiteColor16Regular, color: theme.colors.primary}}
-                iconPosition='right'
-                icon={
-                  <MaterialCommunityIcons 
-                    name='playlist-plus' 
-                    color={theme.colors.primary} 
-                    size={24}
-                    style={{paddingLeft:24}}
-                  />
-                }
-                size='sm'
-                onPress={() => {}} 
-                type='clear'
-              />
-            </View>
-
-            {/* Modal */}
-            <EditEducationModal
-              data={eduData!}
-              visible={openEditModal}
-              onClose={() => setOpenEditModal(!openEditModal)}
-              handleSuccess={() => refetch()}
+          {/* Footer */}
+          <View
+            style={{...styles.footerContainer}}
+          >
+            <Button
+              containerStyle={{width:'100%'}}
+              buttonStyle={{...styles.buttonStyle, }}
+              title={`${t("add")} ${t("education")}`}
+              titleStyle={{...pageStyle.button20, color: theme.colors.primary}}
+              iconPosition='right'
+              icon={
+                <MaterialCommunityIcons 
+                  name='playlist-plus' 
+                  color={theme.colors.primary} 
+                  size={24}
+                  style={{paddingLeft:24}}
+                />
+              }
+              size='sm'
+              onPress={() => {}} 
+              type='clear'
             />
-            
-          </ScrollView>
-        
-        </View>
-      
-      </SafeAreaView>
-    </Modal>
+          </View>
+
+          {/* Modal */}
+          <EditEducationModal
+            data={eduData!}
+            visible={openEditModal}
+            onClose={() => setOpenEditModal(!openEditModal)}
+            handleSuccess={() => refetch()}
+          />
+        </>
+      )}
+    />           
+
   )
 }
 

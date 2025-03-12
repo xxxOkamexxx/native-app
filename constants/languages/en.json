@@ -7,11 +7,20 @@
   "having-an-account-message":"Already have an account?",
   "new-user-message": "Do not have an account?",
   "role-checkbox-text": "Sign up as an company",
+  "sign-up-successful-message": "Sign up successful",
+  "log-in-successful-message": "Log in successful",
   
   "send": "Send",
   "save": "Save",
   "cancel": "Cancel",
   "delete": "Delete",
+  "submit": "Submit",
+  "success-delete-message": "Successfully deleted",
+  "failed-delete-message": "Delete failed", 
+  "success-update-message": "Successfully updated!",
+  "failed-update-message":"Update failed.",
+  "success-add-message": "Item successfully added",
+  "failed-add-message": "Failed to add item",
 
   "first-name": "First name",
   "last-name": "Last name",
@@ -38,7 +47,8 @@
 
   "start-date": "Start date",
   "end-date": "End date",
-  "present": "Present",
+  "present": "I'm in this role now.",
+  "ongoing": "Ongoing",
 
   "dashboard": "Dashboard",
   "home": "Home",
@@ -51,8 +61,6 @@
   "start-message": "Welcome to Staffin!",
   "start-sub-text": "Connect with professionals who inspire you",
   "start-button-text": "Get Started",
-  "success-update-message": "Successfully updated!",
-  "failed-update-message":"Update failed.",
   "no-activity-message": "There are no postings yet.",
 
   "information": "Information",

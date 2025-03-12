@@ -61,12 +61,12 @@ const _layout = () => {
           },
           tabBarItemStyle: {
             backgroundColor: theme.colors.background,
-            borderColor: theme.colors.greyOutline,
+            borderColor: theme.colors.divider,
             borderWidth: 1,
             shadowColor: theme.colors.background,
           },
           tabBarActiveTintColor: theme.colors.primary,
-          tabBarInactiveTintColor: theme.colors.grey2,
+          tabBarInactiveTintColor: theme.colors.primary,
         })}
       >
 
@@ -81,7 +81,7 @@ const _layout = () => {
               color: theme.colors.grey0,
             },
             headerStyle: {
-              backgroundColor: theme.colors.secondary,
+              backgroundColor: theme.colors.searchBg,
             },
             header: () => (
               <PageHeader data={userData} isLoading={isLoading}/>
@@ -116,7 +116,7 @@ const _layout = () => {
               color: theme.colors.grey0,
             },
             headerStyle: {
-              backgroundColor: theme.colors.secondary,
+              backgroundColor: theme.colors.searchBg,
             },
             header: () => (
               <PageHeader data={userData} isLoading={isLoading}/>
@@ -144,7 +144,7 @@ const _layout = () => {
               color: theme.colors.grey0,
             },
             headerStyle: {
-              backgroundColor: theme.colors.secondary,
+              backgroundColor: theme.colors.searchBg,
             },
             header: () => (
               <PageHeader data={userData} isLoading={isLoading}/>
@@ -172,7 +172,7 @@ const _layout = () => {
               color: theme.colors.grey0,
             },
             headerStyle: {
-              backgroundColor: theme.colors.secondary,
+              backgroundColor: theme.colors.searchBg,
             },
             header: () => (
               <PageHeader data={userData} isLoading={isLoading}/>
@@ -199,7 +199,7 @@ const _layout = () => {
               color: theme.colors.grey0,
             },
             headerStyle: {
-              backgroundColor: theme.colors.secondary,
+              backgroundColor: theme.colors.searchBg,
             },
             header: () => (
               <PageHeader data={userData} isLoading={isLoading}/>
@@ -232,7 +232,7 @@ const PageHeader = (data: any, isLoading: boolean) => {
     <View
       style={{
         width: "auto",
-        backgroundColor: theme.colors.secondary,
+        backgroundColor: theme.colors.searchBg,
         paddingHorizontal: Sizes.fixPadding * 1.5,
         paddingVertical: Sizes.fixPadding,
       }}

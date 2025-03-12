@@ -1,6 +1,6 @@
 import { View, TouchableOpacity, StyleSheet} from 'react-native'
 import React, { useState } from 'react'
-import { Switch, useTheme, useThemeMode, Text } from '@rneui/themed'
+import { Switch, useTheme, useThemeMode, Text, Image } from '@rneui/themed'
 
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useTranslation } from "react-i18next";
@@ -47,13 +47,14 @@ const App = () => {
       >
 
         {/* insert image or animation later */}
-        <View
-          style= {{
-            width:100, 
-            height:100, 
-            backgroundColor:'gray',
+        <View />  
+        <Image 
+          source={require('@/assets/images/icon.png')}
+          style={{
+            width: 100,
+            height: 100,
           }}
-        />  
+        />
 
         <View
           style={{
@@ -72,7 +73,7 @@ const App = () => {
 
           <Text 
             style={{
-              ...Fonts.grayColor16Regular,
+              ...pageStyle.smText,
               color: theme.colors.grey0,
             }}
           >
@@ -84,7 +85,7 @@ const App = () => {
           containerStyle={{width:'100%'}}
           buttonStyle={[commonStyles.buttonStyle, styles.buttonStyle]}
           title={`${t("start-button-text")}`}
-          titleStyle={{...Fonts.whiteColor20Medium, color: theme.colors.white}}
+          titleStyle={{...pageStyle.button20, color: theme.colors.white}}
           iconPosition='right'
           icon={
             <MaterialCommunityIcons 

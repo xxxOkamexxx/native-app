@@ -8,6 +8,7 @@ import { useTranslation } from 'react-i18next';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 import { IUser } from '@/types/UserTypes';
+import pageStyle from '@/constants/Styles';
 
 interface props {
   user: IUser;
@@ -24,7 +25,7 @@ const About = ({user, showEditButton}: props) => {
     <View>
       <Text
         style={{
-          ...Fonts.grayColor14Regular,
+          ...pageStyle.smText,
           color: theme.colors.grey0,
         }}
       >

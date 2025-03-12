@@ -410,5 +410,4 @@ const styles = StyleSheet.create({
     height: "100%",
     paddingHorizontal: 0,
   },
-
 })

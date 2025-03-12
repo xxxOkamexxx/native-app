@@ -9,7 +9,8 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import dayjs from 'dayjs'
 
 import { IEducation, IUser } from '@/types/UserTypes';
-import EditEducationModal from './Edit/editEducationModal';
+import EditEducationModal from './Education/editEducationModal';
+import pageStyle from '@/constants/Styles';
 
 
 interface props {
@@ -50,7 +51,7 @@ const Education = ({user, showEditButton}: props) => {
               >
                 <Text 
                   style={{
-                    ...Fonts.grayColor14Bold,
+                    ...pageStyle.headline03,
                     color: theme.colors.grey0,
                   }}
                 >
@@ -59,7 +60,7 @@ const Education = ({user, showEditButton}: props) => {
 
                 <Text 
                   style={{
-                    ...Fonts.grayColor14Regular,
+                    ...pageStyle.smText,
                     color: theme.colors.grey0,
                   }}
                 >
@@ -68,11 +69,11 @@ const Education = ({user, showEditButton}: props) => {
 
                 <Text 
                   style={{
-                    ...Fonts.grayColor14Regular,
+                    ...pageStyle.smText,
                     color: theme.colors.grey3,
                   }}
                 >
-                  {dayjs(edu.startDate).format('YYYY-MM-DD')} - {edu.endDate ? dayjs(edu.endDate).format('YYYY-MM-DD') : 'Ongoing'}
+                  {dayjs(edu.startDate).format('YYYY-MM-DD')} - {edu.endDate ? dayjs(edu.endDate).format('YYYY-MM-DD') : `${t("ongoing")}`}
                 </Text>
               </View>
 
