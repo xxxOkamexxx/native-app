@@ -10,24 +10,22 @@ import { Avatar, Divider, useTheme } from '@rneui/themed';
 import { useTranslation } from 'react-i18next';
 import { Fonts, Sizes, theme } from '@/constants/Theme';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import pageStyle from '@/constants/Styles';
 
+import { updateStaff } from '@/api/backend';
+
+import InfoModal from './Edit/infoModal';
+import AboutModal from './Edit/aboutModal';
 import Information from './Information';
 import About from './about';
 import Activity from './activity';
 import Experience from './experience';
 import Education from './education';
-
-import InfoModal from './Edit/infoModal';
-import AboutModal from './Edit/aboutModal';
-import { updateStaff } from '@/api/backend';
-import { getBase64FromUri } from '@/utils/getBase64';
-import AllEducation from './allEducation';
-import pageStyle from '@/constants/Styles';
-import AllExperience from './allExperience';
 import AllActivity from './allActivity';
-import { rgbaToHex } from '@/utils/rgba-to-hex';
-import { fromPairs } from 'lodash';
+import AllExperience from './allExperience';
+import AllEducation from './allEducation';
 import AddExperienceModal from './Experience/addExperience';
+import AddEducationModal from './Education/addEducationModal';
 
 interface props {
   user: IUser;
@@ -601,6 +599,12 @@ const PerofileIndex = ({user, showEditButton, post, refetch}: props) => {
         visible={openAddExperienceDialog}
         id={user.id}
         onClose={() => setOpenAddExperienceDialog(!openAddExperienceDialog)}
+        handleSuccess={() => refetch()}
+      />
+      <AddEducationModal 
+        visible={openAddEducationDialog}
+        id={user.id}
+        onClose={() => setOpenAddEducationDialog(!openAddEducationDialog)}
         handleSuccess={() => refetch()}
       />
       <AllEducation 

@@ -44,7 +44,7 @@ export interface IEducation {
   name: string;
   institution: string;
   startDate: string;
-  endDate: string; // ISO 8601 format
+  endDate?: string | null; // ISO 8601 format
   staffId: number // ISO 8601 format
 }
 

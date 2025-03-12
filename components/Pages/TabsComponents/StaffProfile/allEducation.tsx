@@ -14,6 +14,7 @@ import { IEducation, IExperience, IUser } from '@/types/UserTypes';
 import Button from '@/components/UI/Button';
 import EditEducationModal from './Education/editEducationModal';
 import HeaderTemplate from '../headerTemplate';
+import AddEducationModal from './Education/addEducationModal';
 
 interface props {
   visible: boolean;
@@ -152,7 +153,9 @@ const AllEducation = ({visible, id, onClose, handleSuccess}: props) => {
                 />
               }
               size='sm'
-              onPress={() => {}} 
+              onPress={() => {
+                setOpenAddModal(true)
+              }} 
               type='clear'
             />
           </View>
@@ -161,8 +164,26 @@ const AllEducation = ({visible, id, onClose, handleSuccess}: props) => {
           <EditEducationModal
             data={eduData!}
             visible={openEditModal}
-            onClose={() => setOpenEditModal(!openEditModal)}
-            handleSuccess={() => refetch()}
+            onClose={() => {
+              setOpenEditModal(!openEditModal)
+              refetch()
+            }}
+            handleSuccess={() => {
+              handleSuccess()
+              refetch()
+            }}
+          />
+          <AddEducationModal 
+            visible={openAddModal}
+            id={userId}
+            onClose={() => {
+              setOpenAddModal(!openAddModal)
+              refetch()
+            }}
+            handleSuccess={() => {
+              handleSuccess()
+              refetch()
+            }}
           />
         </>
       )}

@@ -11,6 +11,7 @@ import dayjs from 'dayjs'
 import { IEducation, IUser } from '@/types/UserTypes';
 import EditEducationModal from './Education/editEducationModal';
 import pageStyle from '@/constants/Styles';
+import AddEducationModal from './Education/addEducationModal';
 
 
 interface props {

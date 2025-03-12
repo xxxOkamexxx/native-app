@@ -22,7 +22,7 @@ import pageStyle from '@/constants/Styles';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { rgbaToHex } from '@/utils/rgba-to-hex';
 import DateCalendar from '@/components/UI/Calendar';
-import { values } from 'lodash';
+
 
 interface props {
   data: IExperience;
@@ -84,7 +84,8 @@ const EditExperienceModal = ({data, visible, onClose, handleSuccess}: props) => 
         text: `${t("delete")}`, 
         onPress: () => handleDelete()
       },
-    ]);
+    ]
+  );
 
 
   const handleDelete = async () => {
@@ -153,7 +154,7 @@ const EditExperienceModal = ({data, visible, onClose, handleSuccess}: props) => 
                   endDate: checked ? null : values.endDate,
                 };
 
-                console.log("value:", formattedValues);
+                // console.log("value:", formattedValues);
                 mutation.mutate(formattedValues);
               }}
             >
@@ -266,7 +267,7 @@ const EditExperienceModal = ({data, visible, onClose, handleSuccess}: props) => 
                           color: theme.colors.grey0
                         }}
                       >
-                        {`${t("present")} ${checked}`}
+                        {`${t("present")}`}
                       </Text>
                     </View>
                     <View
@@ -394,7 +395,7 @@ const EditExperienceModal = ({data, visible, onClose, handleSuccess}: props) => 
                           />   
                         )}
                       </View>                   
-                    </View>
+                    </View>     
 
                     {/* Description */}
                     <View

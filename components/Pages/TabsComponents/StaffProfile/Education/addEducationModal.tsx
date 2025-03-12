@@ -7,9 +7,9 @@ import * as Yup from "yup";
 import { Formik } from 'formik';
 import dayjs from "dayjs";
 
-import { addExperience, deleteExperience, getExperience, updateExperience, updateStaff } from '@/api/backend';
+import { addEducation, addExperience, deleteExperience, getExperience, updateExperience, updateStaff } from '@/api/backend';
 
-import { IExperience, IUser } from '@/types/UserTypes';
+import { IEducation, IExperience, IUser } from '@/types/UserTypes';
 
 import { CheckBox, useTheme } from '@rneui/themed';
 import { useTranslation } from 'react-i18next';
@@ -29,13 +29,14 @@ interface props {
   id: any
 }
 
-const AddExperienceSchema = Yup.object().shape({
-  companyName: Yup.string().required("Company name is required"),
+const AddEducationSchema = Yup.object().shape({
+  name: Yup.string().required("Name is required"),
+  institution: Yup.string().required("Institution is required"),
   startDate: Yup.string().required("Start date is required"),
 });
 
 
-const AddExperienceModal = ({visible, onClose, handleSuccess, id}: props) => {
+const AddEducationModal = ({visible, onClose, handleSuccess, id}: props) => {
   const { theme } = useTheme()
   const { t } = useTranslation();
   const toast = useToast();
@@ -47,7 +48,7 @@ const AddExperienceModal = ({visible, onClose, handleSuccess, id}: props) => {
   const mutation = useMutation({
     mutationFn: async (values:any) => {   
       try {
-        const response = await addExperience(values);
+        const response = await addEducation(values);
         return response;
       } catch (error) {
         console.error("Mutation error:", error);
@@ -68,6 +69,7 @@ const AddExperienceModal = ({visible, onClose, handleSuccess, id}: props) => {
     },
   })
 
+  
   return (
     <Modal
       visible={visible}
@@ -90,17 +92,15 @@ const AddExperienceModal = ({visible, onClose, handleSuccess, id}: props) => {
           >
             <Formik
               initialValues={{
+                id: 0,
                 staffId: 0,
-                userId: 0,
-                position: "",
-                description: "",
-                companyName: "",
-                location: "",
+                name: "",
+                institution: "",
                 startDate: dayjs().locale('sv').format('YYYY-MM-DD'),
                 endDate: dayjs().locale('sv').format('YYYY-MM-DD') || null, 
               }}
-              validationSchema={AddExperienceSchema}
-              onSubmit={(values: IExperience) => {
+              validationSchema={AddEducationSchema}
+              onSubmit={(values: IEducation) => {
                 const formattedValues = {
                   ...values,
                   endDate: checked ? null : values.endDate,
@@ -121,7 +121,7 @@ const AddExperienceModal = ({visible, onClose, handleSuccess, id}: props) => {
                       marginBottom: theme.spacing.xl,
                     }}
                   >
-                    {/* Position */}
+                    {/* Name */}
                     <View
                       style={{
                         width: "100%",
@@ -133,20 +133,21 @@ const AddExperienceModal = ({visible, onClose, handleSuccess, id}: props) => {
                           color: theme.colors.grey0
                         }}
                       >
-                        {t("position")}
+                        {t("name")}
                       </Text>
                       <TextField
-                        placeholder={t("position")}
-                        onChangeText={handleChange("position")}
-                        onBlur={handleBlur("position")}
-                        value={values.position as string}
-                        name={"position"}
+                        placeholder={t("name")}
+                        onChangeText={handleChange("name")}
+                        onBlur={handleBlur("name")}
+                        value={values.name as string}
+                        name={"name"}
                         type={"text"}
                         styles={{color: theme.colors.grey0}}
+                        errorMessage={errors.name}
                       />
                     </View>
 
-                    {/* Company Name */}
+                    {/* Institution */}
                     <View
                       style={{
                         width: "100%",
@@ -158,44 +159,20 @@ const AddExperienceModal = ({visible, onClose, handleSuccess, id}: props) => {
                           color: theme.colors.grey0
                         }}
                       >
-                        {t("company-name")}
+                        {t("institution")}
                       </Text>
                       <TextField
-                        placeholder={t("company-name")}
-                        onChangeText={handleChange("companyName")}
-                        onBlur={handleBlur("companyName")}
-                        value={values.companyName as string}
-                        name={"companyName"}
+                        placeholder={t("institution")}
+                        onChangeText={handleChange("institution")}
+                        onBlur={handleBlur("institution")}
+                        value={values.institution as string}
+                        name={"institution"}
                         type={"text"}
                         styles={{color: theme.colors.grey0}}
-                        errorMessage={errors.companyName}
+                        errorMessage={errors.institution}
                       />
                     </View>
 
-                    {/* Location */}
-                    <View
-                      style={{
-                        width: "100%",
-                      }}
-                    >
-                      <Text 
-                        style={{
-                          ...styles.inputLabel,
-                          color: theme.colors.grey0
-                        }}
-                      >
-                        {t("location")}
-                      </Text>
-                      <TextField
-                        placeholder={t("location")}
-                        onChangeText={handleChange("location")}
-                        onBlur={handleBlur("location")}
-                        value={values.location as string}
-                        name={"location"}
-                        type={"text"}
-                        styles={{color: theme.colors.grey0}}
-                      />
-                    </View>
 
                     {/* Start-/ End Date */}
                     <View
@@ -347,31 +324,6 @@ const AddExperienceModal = ({visible, onClose, handleSuccess, id}: props) => {
                         )}
                       </View>                   
                     </View>
-
-                    {/* Description */}
-                    <View
-                      style={{
-                        flex: 1,
-                      }}
-                    >
-                      <Text 
-                        style={{
-                          ...styles.inputLabel,
-                          color: theme.colors.grey0
-                        }}
-                      >
-                        {t("description")}
-                      </Text>
-                      <MultiTextField
-                        placeholder={t("description")}
-                        onChangeText={handleChange("description")}
-                        onBlur={handleBlur("description")}
-                        value={values.description as string}
-                        name={"description"}
-                        type={"text"}
-                      />
-                    </View>
-
                   </View>
 
                   {/* Button Group */}
@@ -422,7 +374,7 @@ const AddExperienceModal = ({visible, onClose, handleSuccess, id}: props) => {
   )
 }
 
-export default AddExperienceModal
+export default AddEducationModal
 
 const styles = StyleSheet.create({
   formContiner: {

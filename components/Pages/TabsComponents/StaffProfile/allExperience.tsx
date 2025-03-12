@@ -181,7 +181,10 @@ const AllExperience = ({visible, id, onClose, handleSuccess}: props) => {
           <EditExperienceModal
             data={expData!}
             visible={openEditModal}
-            onClose={() => setOpenEditModal(!openEditModal)}
+            onClose={() => {
+              setOpenEditModal(!openEditModal)
+              refetch()
+            }}
             handleSuccess={() => {
               handleSuccess()
               refetch()}
@@ -191,10 +194,13 @@ const AllExperience = ({visible, id, onClose, handleSuccess}: props) => {
           <AddExperienceModal
             visible={openAddModal}
             id={userId}
-            onClose={() => setOpenAddModal(!openAddModal)}
+            onClose={() => {
+              setOpenAddModal(!openAddModal)
+              refetch()
+            }}
             handleSuccess={() => {
               handleSuccess()
-              refetch()
+              refetch
             }}
           />
         </>
