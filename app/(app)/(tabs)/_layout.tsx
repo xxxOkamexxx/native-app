@@ -47,7 +47,10 @@ const _layout = () => {
 
   return (
     <View
-      style={{flex: 1, backgroundColor: theme.colors.background}}
+      style={{
+        flex: 1, 
+        backgroundColor: theme.colors.cardBg
+      }}
     >
       <Tabs
         initialRouteName={unstable_settings.initialRouteName}
@@ -81,7 +84,7 @@ const _layout = () => {
               color: theme.colors.grey0,
             },
             headerStyle: {
-              backgroundColor: theme.colors.searchBg,
+              backgroundColor: theme.colors.cardBg,
             },
             header: () => (
               <PageHeader data={userData} isLoading={isLoading}/>
@@ -232,7 +235,7 @@ const PageHeader = (data: any, isLoading: boolean) => {
     <View
       style={{
         width: "auto",
-        backgroundColor: theme.colors.searchBg,
+        backgroundColor: theme.colors.cardBg,
         paddingHorizontal: Sizes.fixPadding * 1.5,
         paddingVertical: Sizes.fixPadding,
       }}
@@ -267,10 +270,7 @@ const PageHeader = (data: any, isLoading: boolean) => {
               <MaterialCommunityIcons name='chat-outline' size={30} color={theme.colors.grey3}/>
             </TouchableOpacity>
 
-
           </View>
-
-
         </View>
         }
 

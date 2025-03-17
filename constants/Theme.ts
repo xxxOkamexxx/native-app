@@ -80,7 +80,7 @@ export const theme = createTheme({
     success: "#00C851", // Define success color
     error: "#ff4444", // Define error color
     warning: "#FFBB33", // Define warning color
-    cardBg: "rgba(248, 247, 250, 0.7)",
+    cardBg: "rgba(37, 37, 37, 0.7)",
     modal: "rgba(15, 15, 15, 0.6)",
   },
   components: {

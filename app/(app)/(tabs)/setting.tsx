@@ -4,9 +4,10 @@ import React, { useState } from 'react'
 import { useTranslation } from "react-i18next";
 import { useAuth } from '@/contexts/authContext';
 import { setItem } from "@/utils/asyncStorage";
+import Button from '@/components/UI/Button'
 
 import { Fonts, Sizes, theme } from "@/constants/Theme";
-import { Avatar, Button, Overlay, Switch, useTheme, useThemeMode } from "@rneui/themed";
+import { Avatar, Overlay, Switch, useTheme, useThemeMode } from "@rneui/themed";
 import pageStyle from '@/constants/Styles'
 
 
@@ -47,9 +48,18 @@ const setting = () => {
       >
         {/* Theme */}
         <View
-          style={{...styles.itemWrapper}} 
+          style={{
+            ...styles.itemWrapper
+          }} 
         >
-          <Text>Theme: </Text>
+          <Text
+            style={{
+              ...pageStyle.smText,
+              color: theme.colors.grey0
+            }}
+          >
+            Theme: 
+          </Text>
           <TouchableOpacity>
             <Switch
               value={mode === "dark"}
@@ -62,13 +72,28 @@ const setting = () => {
         <View
           style={{...styles.itemWrapper}} 
         >
-          <Text>Logout: </Text>
-          <Button
-            onPress={SignOut}
-            style={{width: '40%'}}
+          <Text
+            style={{
+              ...pageStyle.smText,
+              color: theme.colors.grey0
+            }}
           >
-            <Text>Sign out</Text>
-          </Button>
+            {`${t("log-out")}:`}
+          </Text>
+          <Button
+            title={`${t("log-out")}`}
+            onPress={SignOut}
+            size='md'
+            color='primary'
+            titleStyle={{ ...pageStyle.button16 }}
+            radius={"sm"}
+            containerStyle={{
+              ...styles.buttonContainer,
+              borderColor: theme.colors.primary,                     
+              borderWidth: 2,
+              borderRadius:10
+            }}
+          />
         </View>
       </View>
     </View>
@@ -85,6 +110,12 @@ const styles = StyleSheet.create({
   itemWrapper: {
     flexDirection:'row', 
     gap: theme.spacing?.lg,
-    alignItems: 'center'
-  }
+    alignItems: 'center',
+    justifyContent:'space-between'
+  },
+  buttonContainer: {
+    flexShrink: 1,
+    height: "100%",
+    paddingHorizontal: 0,
+  },
 });

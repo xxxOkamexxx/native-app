@@ -25,14 +25,14 @@ export default function MyStatusBar({ children, onPress, style, showBackIcon = f
       <ExpoStatusBar
         networkActivityIndicatorVisible={true}
         translucent={true}
-        backgroundColor={theme.colors.primary}
+        backgroundColor={theme.colors.cardBg}
         style={Platform.OS === "android" ? "light" : theme.mode === "light" ? "dark" : "light"}
         hidden={heightStatusBar ? true : false}
         animated={true}
       />
       <SafeAreaView 
         style={{ 
-          // backgroundColor: theme.colors.searchBg, 
+          //backgroundColor: theme.colors.cardBg, 
           marginTop: isIOS 
             ? (StatusBar.currentHeight || 0) - 25 
             : (StatusBar.currentHeight || 0) - 30
@@ -63,7 +63,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     paddingHorizontal: 10,
     borderRadius: 5,
-    backgroundColor: "transparent",
+    //backgroundColor: "transparent",
     shadowOffset: {
       width: 0,
       height: 2,
